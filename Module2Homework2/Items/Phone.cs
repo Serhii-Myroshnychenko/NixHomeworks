@@ -5,7 +5,18 @@ namespace Module2Homework2.Items
 {
     public class Phone : Product
     {
-        public Phone(Guid id, string name, int count, string screenDiagonal, string displayType, string camera, string processor, string batteryCapacity, int memory, decimal price, Color color)
+        public Phone(
+            Guid id,
+            string name,
+            int count,
+            string screenDiagonal,
+            string displayType,
+            string camera,
+            string processor,
+            string batteryCapacity,
+            int memory,
+            decimal price,
+            Color color)
             : base(name, count, id)
         {
             ScreenDiagonal = screenDiagonal;

@@ -5,6 +5,6 @@ namespace Module2Homework2.Repository
 {
     public static class Data
     {
-        public static List<Product> GetProducts() => Parser.ParseData(DataProvider.GetDataFromFile());
+        public static Product[] GetProducts() => Parser.ParseData(DataProvider.GetDataFromFile()).ToArray();
     }
 }

@@ -1,5 +1,4 @@
-﻿
-using Module2Homework2.Items.Base;
+﻿using Module2Homework2.Items.Base;
 using Module2Homework2.Repository;
 
 namespace Module2Homework2.UI
@@ -17,15 +16,14 @@ namespace Module2Homework2.UI
             bool flag = true;
             while (flag)
             {
-                List<Product> products = Data.GetProducts();
+                Product[] products = Data.GetProducts();
 
-                Console.WriteLine(
-                "Iнтернет-магазин Apple (Оберiть потрiбну операцiю)" + "\n" + "\n" +
-                "1 - Переглянути доступнi товари." + "\n" +
-                "2 - Переглянути Ваш кошик." + "\n" +
-                "3 - Оформити замовлення." + "\n" +
-                "4 - Завершити роботу."
-                );
+                Console.WriteLine("Iнтернет-магазин Apple (Оберiть потрiбну операцiю)" + "\n");
+                Console.WriteLine("1 - Переглянути доступнi товари.");
+                Console.WriteLine("2 - Переглянути Ваш кошик.");
+                Console.WriteLine("3 - Оформити замовлення.");
+                Console.WriteLine("4 - Завершити роботу.");
+
                 string? input = Console.ReadLine();
                 switch (input)
                 {
@@ -48,7 +46,7 @@ namespace Module2Homework2.UI
             }
         }
 
-        private static void GetListOfAvailableProducts(List<Product> products)
+        private static void GetListOfAvailableProducts(Product[] products)
         {
             bool flag = true;
             while (flag)
@@ -80,7 +78,7 @@ namespace Module2Homework2.UI
             }
         }
 
-        private static void AddProductToCart(List<Product> products)
+        private static void AddProductToCart(Product[] products)
         {
             bool flag = true;
             while (flag)
@@ -88,12 +86,12 @@ namespace Module2Homework2.UI
                 Console.WriteLine("Введiть назву товару." + "\n");
                 string? name = Console.ReadLine();
 
-                if (products.Exists(p => p.Name == name))
+                if (Array.Exists(products, p => p.Name.ToLower() == name!.ToLower()))
                 {
                     bool innerFlag = true;
                     while (innerFlag)
                     {
-                        var selectedProduct = products.Find(p => p.Name == name);
+                        var selectedProduct = Array.Find(products, p => p.Name == name);
                         Console.WriteLine("Введiть кiлькiсть товару: " + "\n");
                         string? count = Console.ReadLine();
                         if (int.TryParse(count, out var number) && selectedProduct!.Count >= number && number > 0)
