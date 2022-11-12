@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Module2Homework1
+namespace Module2Homework5.Base
 {
     public enum LogTypes
     {
