@@ -1,10 +1,9 @@
 ﻿using Module2Homework5.Base;
-using Module2Homework5.Contracts;
 using Module2Homework5.Data;
 
 namespace Module2Homework5.Executors
 {
-    public class Logger : ILogger
+    public class Logger
     {
         private static readonly object _lock = new ();
         private string[] _logs;
