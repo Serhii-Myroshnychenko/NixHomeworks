@@ -1,0 +1,100 @@
+18.11.2022 2:11:30:Info:Start method: Start()
+18.11.2022 2:11:30:Warning:Action got this custom Exception: Skipped logic in method: SkipLogic()
+18.11.2022 2:11:30:Info:Start method: Start()
+18.11.2022 2:11:30:Info:Start method: Start()
+18.11.2022 2:11:30:Info:Start method: Start()
+18.11.2022 2:11:30:Warning:Action got this custom Exception: Skipped logic in method: SkipLogic()
+18.11.2022 2:11:30:Error:Action failed by reason: I broke a logic.
+18.11.2022 2:11:30:Warning:Action got this custom Exception: Skipped logic in method: SkipLogic()
+18.11.2022 2:11:30:Error:Action failed by reason: I broke a logic.
+18.11.2022 2:11:30:Info:Start method: Start()
+18.11.2022 2:11:30:Info:Start method: Start()
+18.11.2022 2:11:30:Error:Action failed by reason: I broke a logic.
+18.11.2022 2:11:30:Warning:Action got this custom Exception: Skipped logic in method: SkipLogic()
+18.11.2022 2:11:30:Info:Start method: Start()
+18.11.2022 2:11:30:Info:Start method: Start()
+18.11.2022 2:11:30:Warning:Action got this custom Exception: Skipped logic in method: SkipLogic()
+18.11.2022 2:11:30:Error:Action failed by reason: I broke a logic.
+18.11.2022 2:11:30:Info:Start method: Start()
+18.11.2022 2:11:30:Error:Action failed by reason: I broke a logic.
+18.11.2022 2:11:30:Error:Action failed by reason: I broke a logic.
+18.11.2022 2:11:30:Error:Action failed by reason: I broke a logic.
+18.11.2022 2:11:30:Info:Start method: Start()
+18.11.2022 2:11:30:Warning:Action got this custom Exception: Skipped logic in method: SkipLogic()
+18.11.2022 2:11:30:Warning:Action got this custom Exception: Skipped logic in method: SkipLogic()
+18.11.2022 2:11:30:Error:Action failed by reason: I broke a logic.
+18.11.2022 2:11:30:Info:Start method: Start()
+18.11.2022 2:11:30:Warning:Action got this custom Exception: Skipped logic in method: SkipLogic()
+18.11.2022 2:11:30:Error:Action failed by reason: I broke a logic.
+18.11.2022 2:11:30:Info:Start method: Start()
+18.11.2022 2:11:30:Warning:Action got this custom Exception: Skipped logic in method: SkipLogic()
+18.11.2022 2:11:30:Error:Action failed by reason: I broke a logic.
+18.11.2022 2:11:30:Error:Action failed by reason: I broke a logic.
+18.11.2022 2:11:30:Info:Start method: Start()
+18.11.2022 2:11:30:Error:Action failed by reason: I broke a logic.
+18.11.2022 2:11:30:Warning:Action got this custom Exception: Skipped logic in method: SkipLogic()
+18.11.2022 2:11:30:Warning:Action got this custom Exception: Skipped logic in method: SkipLogic()
+18.11.2022 2:11:30:Info:Start method: Start()
+18.11.2022 2:11:30:Error:Action failed by reason: I broke a logic.
+18.11.2022 2:11:30:Info:Start method: Start()
+18.11.2022 2:11:30:Error:Action failed by reason: I broke a logic.
+18.11.2022 2:11:30:Error:Action failed by reason: I broke a logic.
+18.11.2022 2:11:30:Error:Action failed by reason: I broke a logic.
+18.11.2022 2:11:30:Error:Action failed by reason: I broke a logic.
+18.11.2022 2:11:30:Info:Start method: Start()
+18.11.2022 2:11:30:Warning:Action got this custom Exception: Skipped logic in method: SkipLogic()
+18.11.2022 2:11:30:Info:Start method: Start()
+18.11.2022 2:11:30:Error:Action failed by reason: I broke a logic.
+18.11.2022 2:11:30:Error:Action failed by reason: I broke a logic.
+18.11.2022 2:11:30:Info:Start method: Start()
+18.11.2022 2:11:30:Warning:Action got this custom Exception: Skipped logic in method: SkipLogic()
+18.11.2022 2:11:31:Warning:Action got this custom Exception: Skipped logic in method: SkipLogic()
+18.11.2022 2:11:31:Info:Start method: Start()
+18.11.2022 2:11:31:Warning:Action got this custom Exception: Skipped logic in method: SkipLogic()
+18.11.2022 2:11:31:Error:Action failed by reason: I broke a logic.
+18.11.2022 2:11:31:Info:Start method: Start()
+18.11.2022 2:11:31:Info:Start method: Start()
+18.11.2022 2:11:31:Warning:Action got this custom Exception: Skipped logic in method: SkipLogic()
+18.11.2022 2:11:31:Info:Start method: Start()
+18.11.2022 2:11:31:Info:Start method: Start()
+18.11.2022 2:11:31:Error:Action failed by reason: I broke a logic.
+18.11.2022 2:11:31:Warning:Action got this custom Exception: Skipped logic in method: SkipLogic()
+18.11.2022 2:11:31:Warning:Action got this custom Exception: Skipped logic in method: SkipLogic()
+18.11.2022 2:11:31:Warning:Action got this custom Exception: Skipped logic in method: SkipLogic()
+18.11.2022 2:11:31:Error:Action failed by reason: I broke a logic.
+18.11.2022 2:11:31:Error:Action failed by reason: I broke a logic.
+18.11.2022 2:11:31:Warning:Action got this custom Exception: Skipped logic in method: SkipLogic()
+18.11.2022 2:11:31:Error:Action failed by reason: I broke a logic.
+18.11.2022 2:11:31:Warning:Action got this custom Exception: Skipped logic in method: SkipLogic()
+18.11.2022 2:11:31:Warning:Action got this custom Exception: Skipped logic in method: SkipLogic()
+18.11.2022 2:11:31:Info:Start method: Start()
+18.11.2022 2:11:31:Info:Start method: Start()
+18.11.2022 2:11:31:Warning:Action got this custom Exception: Skipped logic in method: SkipLogic()
+18.11.2022 2:11:31:Warning:Action got this custom Exception: Skipped logic in method: SkipLogic()
+18.11.2022 2:11:31:Error:Action failed by reason: I broke a logic.
+18.11.2022 2:11:31:Warning:Action got this custom Exception: Skipped logic in method: SkipLogic()
+18.11.2022 2:11:31:Error:Action failed by reason: I broke a logic.
+18.11.2022 2:11:31:Info:Start method: Start()
+18.11.2022 2:11:31:Info:Start method: Start()
+18.11.2022 2:11:31:Info:Start method: Start()
+18.11.2022 2:11:31:Warning:Action got this custom Exception: Skipped logic in method: SkipLogic()
+18.11.2022 2:11:31:Error:Action failed by reason: I broke a logic.
+18.11.2022 2:11:31:Info:Start method: Start()
+18.11.2022 2:11:31:Info:Start method: Start()
+18.11.2022 2:11:31:Warning:Action got this custom Exception: Skipped logic in method: SkipLogic()
+18.11.2022 2:11:31:Warning:Action got this custom Exception: Skipped logic in method: SkipLogic()
+18.11.2022 2:11:31:Warning:Action got this custom Exception: Skipped logic in method: SkipLogic()
+18.11.2022 2:11:31:Warning:Action got this custom Exception: Skipped logic in method: SkipLogic()
+18.11.2022 2:11:31:Error:Action failed by reason: I broke a logic.
+18.11.2022 2:11:31:Info:Start method: Start()
+18.11.2022 2:11:31:Error:Action failed by reason: I broke a logic.
+18.11.2022 2:11:31:Info:Start method: Start()
+18.11.2022 2:11:31:Error:Action failed by reason: I broke a logic.
+18.11.2022 2:11:31:Info:Start method: Start()
+18.11.2022 2:11:31:Info:Start method: Start()
+18.11.2022 2:11:31:Error:Action failed by reason: I broke a logic.
+18.11.2022 2:11:31:Error:Action failed by reason: I broke a logic.
+18.11.2022 2:11:31:Info:Start method: Start()
+18.11.2022 2:11:31:Error:Action failed by reason: I broke a logic.
+18.11.2022 2:11:31:Warning:Action got this custom Exception: Skipped logic in method: SkipLogic()
+18.11.2022 2:11:31:Error:Action failed by reason: I broke a logic.
