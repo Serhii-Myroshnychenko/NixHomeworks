@@ -1,6 +1,6 @@
 {
   "Path": {
-    "File": "./Logs/"
+    "Folder": "./Logs/"
   },
   "exclude": [
     "**/bin",

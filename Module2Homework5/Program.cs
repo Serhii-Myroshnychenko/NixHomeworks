@@ -1,7 +1,3 @@
-﻿using Module2Homework5;
-using Module2Homework5.Configuration;
-using Module2Homework5.Data;
+﻿using Module2Homework5.Executors;
 
-FileService.CreateNewTextFile("dsd.txt");
-
-//Starter.Run();
+Starter.Run();
