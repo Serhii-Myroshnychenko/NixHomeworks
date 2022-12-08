@@ -8,7 +8,6 @@ namespace Module3Homework5.Providers
         public FileProvider(IPathProvider provider)
         {
             _path = provider.GetPath();
-            Console.WriteLine(_path);
         }
 
         public async Task<string> GetHelloFromFileAsync()
