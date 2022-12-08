@@ -19,14 +19,5 @@ namespace Module3Homework5.Providers
         {
             return await File.ReadAllTextAsync(_path + "world.txt");
         }
-
-        public async Task<string> ConcatTwoStringsAsync()
-        {
-            Task<string> first = GetHelloFromFileAsync();
-            Task<string> second = GetWorldFromFileAsync();
-
-            var result = await Task.WhenAll(first, second);
-            return result[0] + result[1];
-        }
     }
 }
