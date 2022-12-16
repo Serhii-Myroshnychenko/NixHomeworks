@@ -2,7 +2,7 @@
 {
     public class Calculator
     {
-        public delegate double CalculatorHandler (double first, double second);
+        public delegate void CalculatorHandler (double first, double second);
         public event CalculatorHandler? Compute;
         public double CurrentSum { get; set; }
         public Calculator()
@@ -10,27 +10,21 @@
             Compute += GetSumOfTwoNumbers;
             Compute += GetSumOfTwoNumbers;
         }
-        public double GetSumOfTwoNumbers(double first, double second)
+        public void GetSumOfTwoNumbers(double first, double second)
         {
-            Console.WriteLine("here");
-            return first + second;
-           
+            CurrentSum += first + second;
         }
-        public void GetSum()
+        public void GetTotalSum(double first, double second)
         {
-            CurrentSum += Compute!.Invoke(2, 2);
-            Console.WriteLine("CurrentSum: " + CurrentSum);
+            try
+            {
+                Compute!.Invoke(first,second);
+                Console.WriteLine("Total sum: " + CurrentSum);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
-        //public  double GetSomeResult(CalculatorHandler calculatorHandler)
-        //{
-        //    try
-        //    {
-        //        var sum = calculatorHandler.Invoke;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        Console.WriteLine(ex.Message);
-        //    }
-        //}
     }
 }
