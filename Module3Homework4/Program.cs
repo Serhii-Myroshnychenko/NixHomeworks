@@ -1,7 +1,3 @@
-﻿using Module3Homework4.Delegates;
-using Module3Homework4.LINQ.Methods;
+﻿using Module3Homework4.Starters;
 
-//Calculator calculator = new();
-//calculator.GetTotalSum(3,3);
-
-Executor.Execute();
+Starter.Run();

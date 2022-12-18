@@ -4,14 +4,13 @@ namespace Module3Homework4.LINQ.Models
 {
     public class Contact
     {
-        public Guid Id { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public string Company { get; set; }
-        public string Phone { get; set; }
-        public string Email { get; set; }
-        public DateTime Birthday { get; set; }
-        public Contact(string firstName, string lastName, string company,string phone,string email, DateTime birthday)
+        public Contact(
+            string firstName,
+            string lastName,
+            string company,
+            string phone,
+            string email,
+            DateTime birthday)
         {
             Id = Guid.NewGuid();
             FirstName = firstName;
@@ -21,6 +20,14 @@ namespace Module3Homework4.LINQ.Models
             Email = email;
             Birthday = birthday;
         }
+
+        public Guid Id { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string Company { get; set; }
+        public string Phone { get; set; }
+        public string Email { get; set; }
+        public DateTime Birthday { get; set; }
         public void Print()
         {
             StringBuilder stringBuilder = new ();
