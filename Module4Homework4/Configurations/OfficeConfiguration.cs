@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Module4Homework3.Models;
+using Module4Homework4.Models;
 
-namespace Module4Homework3.Configurations
+namespace Module4Homework4.Configurations
 {
     public class OfficeConfiguration : IEntityTypeConfiguration<Office>
     {

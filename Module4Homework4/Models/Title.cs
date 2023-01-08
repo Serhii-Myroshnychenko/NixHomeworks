@@ -1,9 +1,9 @@
-﻿namespace Module4Homework3.Models
+﻿namespace Module4Homework4.Models
 {
     public class Title
     {
         public int TitleId { get; set; }
-        public string Name { get; set; } = string.Empty;
+        public string Name { get; set; } 
         public List<Employee> Employees { get; set; } = new List<Employee>();
     }
 }

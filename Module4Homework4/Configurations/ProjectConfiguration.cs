@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Module4Homework3.Models;
+using Module4Homework4.Models;
 
-namespace Module4Homework3.Configurations
+namespace Module4Homework4.Configurations
 {
     public class ProjectConfiguration : IEntityTypeConfiguration<Project>
     {
@@ -16,6 +16,8 @@ namespace Module4Homework3.Configurations
             builder.Property(p => p.Budget).HasColumnName("Budget");
             builder.Property(p => p.StartedDate).HasColumnName("StartedDate")
                 .HasMaxLength(7);
+            builder.Property(p => p.ClientId).HasColumnName("ClientId")
+                .IsRequired();
             builder.HasMany(p => p.EmployeeProjects)
                 .WithOne(ep => ep.Project)
                 .HasForeignKey(ep => ep.ProjectId)
