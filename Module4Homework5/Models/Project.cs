@@ -1,4 +1,4 @@
-﻿namespace Module4Homework4.Models
+﻿namespace Module4Homework5.Models
 {
     public class Project
     {
@@ -7,7 +7,7 @@
         public decimal Budget { get; set; }
         public DateTime StartedDate { get; set; }
         public int ClientId { get; set; }
-        public Client Client { get; set; }
-        public List<EmployeeProject> EmployeeProjects { get; set; } = new List<EmployeeProject>();
+        public virtual Client Client { get; set; }
+        public virtual List<EmployeeProject> EmployeeProjects { get; set; } = new List<EmployeeProject>();
     }
 }

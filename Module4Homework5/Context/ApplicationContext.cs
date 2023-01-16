@@ -1,12 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using Module4Homework4.Configurations;
-using Module4Homework4.Models;
+using Module4Homework5.Configurations;
+using Module4Homework5.Models;
 
-namespace Module4Homework4.Context
+namespace Module4Homework5.Context
 {
     public class ApplicationContext : DbContext
-    {
+    {   
         public DbSet<Employee> Employees { get; set; }
         public DbSet<EmployeeProject> EmployeeProjects { get; set; }
         public DbSet<Office> Offices { get; set; }
@@ -29,7 +29,9 @@ namespace Module4Homework4.Context
                 .SetBasePath(Path.Combine(Directory.GetCurrentDirectory()))
                 .AddJsonFile("configuration.json")
                 .Build();
-            optionsBuilder.UseSqlServer(configuration["Path:ConnectionString"] !);
+            optionsBuilder
+                .UseLazyLoadingProxies()
+                .UseSqlServer(configuration["Path:ConnectionString"] !);
         }
     }
 }
