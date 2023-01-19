@@ -1,0 +1,13 @@
+{
+  "Path": {
+    "ConnectionString": "Server=.\\SQLEXPRESS;Database=Module4Homework6;Trusted_Connection=True;Encrypt=False;"
+  },
+  "exclude": [
+    "**/bin",
+    "**/bower_components",
+    "**/jspm_packages",
+    "**/node_modules",
+    "**/obj",
+    "**/platforms"
+  ]
+}
