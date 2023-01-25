@@ -1,0 +1,13 @@
+{
+  "Api": {
+    "Host": "https://reqres.in/api"
+  },
+  "exclude": [
+    "**/bin",
+    "**/bower_components",
+    "**/jspm_packages",
+    "**/node_modules",
+    "**/obj",
+    "**/platforms"
+  ]
+}
