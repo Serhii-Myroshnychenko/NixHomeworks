@@ -1,13 +1,14 @@
 ﻿using Module3Homework7.Contracts;
+using Module3Homework7.Utils;
 
 namespace Module3Homework7.Services
 {
     public class FileHandler : IFileHandler
     {
-        public async Task WriteDataToFileAsync(string path,string[] data)
+        public Task WriteDataToFileAsync(string path,string[] data)
         {
-            var a = path + ".txt";
-            await File.WriteAllTextAsync(a,data.ToString());
+            return Task.Run(async () => await File.WriteAllTextAsync(path + ".txt", LogsConverter.ConvertLogs(data)));
+            //await File.WriteAllTextAsync(path + ".txt",LogsConverter.ConvertLogs(data));
         }
     }
 }

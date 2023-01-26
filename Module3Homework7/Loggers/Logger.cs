@@ -51,6 +51,7 @@ namespace Module3Homework7.Loggers
                 Notify!.Invoke();
             }
         }
-        public async Task WriteLogsToFileAsync(IFileHandler fileHandler) => await fileHandler.WriteDataToFileAsync(_configuration.GetPath() + DateTime.Now,_logs);
+        public async Task WriteLogsToFileAsync(IFileHandler fileHandler) => await fileHandler.WriteDataToFileAsync(
+            _configuration.GetPath() + DateTime.Now.ToString("yyyy-dd-M-HH-mm-ss"), _logs);
     }
 }

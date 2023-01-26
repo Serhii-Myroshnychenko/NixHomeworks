@@ -3,7 +3,7 @@
     "Folder": "//Backup//"
   },
   "Count": {
-    "N": "2"
+    "N": "25"
   },
   "exclude": [
     "**/bin",

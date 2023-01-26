@@ -1,4 +1,6 @@
-﻿using Module3Homework7.Configurations;
-using Module3Homework7.Starters;
+﻿using Module3Homework7.Starters;
 
 Runner.Run();
+
+//Console.WriteLine(DateTime.Now.ToString("MM/dd/yyyy-HH:mm:ss") + ".txt");
+    
