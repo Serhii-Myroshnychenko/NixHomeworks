@@ -1,5 +1,6 @@
 ﻿using Module3Homework7.Configurations;
 using Module3Homework7.Contracts;
+using Module3Homework7.Utils;
 
 namespace Module3Homework7.Loggers
 {
@@ -10,8 +11,8 @@ namespace Module3Homework7.Loggers
 
         private static readonly object _lock = new();
         private string[] _logs;
-        private int _number;
-        private ConfigurationHandler _configuration;
+        private readonly int _number;
+        private readonly ConfigurationHandler _configuration;
         private Logger()
         {
             _logs = Array.Empty<string>();
@@ -51,6 +52,12 @@ namespace Module3Homework7.Loggers
                 Notify!.Invoke();
             }
         }
+        //public async Task WriteLogsToFileAsync()
+        //{
+        //    await Task.Run(async () => await File.WriteAllTextAsync($"{_configuration.GetPath() + DateTime.Now.ToString("yyyy-dd-M-HH-mm-ss") + Guid.NewGuid()}.txt", LogsConverter.ConvertLogs(_logs)));
+        //    //await fileHandler.WriteDataToFileAsync(
+        //    //_configuration.GetPath() + DateTime.Now.ToString("yyyy-dd-M-HH-mm-ss"), _logs)
+        //}
         public async Task WriteLogsToFileAsync(IFileHandler fileHandler) => await fileHandler.WriteDataToFileAsync(
             _configuration.GetPath() + DateTime.Now.ToString("yyyy-dd-M-HH-mm-ss"), _logs);
     }

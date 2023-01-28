@@ -5,10 +5,9 @@ namespace Module3Homework7.Services
 {
     public class FileHandler : IFileHandler
     {
-        public Task WriteDataToFileAsync(string path,string[] data)
+        public async Task WriteDataToFileAsync(string path,string[] data)
         {
-            return Task.Run(async () => await File.WriteAllTextAsync(path + ".txt", LogsConverter.ConvertLogs(data)));
-            //await File.WriteAllTextAsync(path + ".txt",LogsConverter.ConvertLogs(data));
+            await Task.Run(async () => await File.WriteAllTextAsync(path +Guid.NewGuid() + ".txt", LogsConverter.ConvertLogs(data)));
         }
     }
 }
