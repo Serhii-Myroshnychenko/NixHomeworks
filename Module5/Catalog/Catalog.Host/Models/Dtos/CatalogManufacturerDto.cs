@@ -6,6 +6,5 @@
         public string Name { get; set; } = null!;
         public DateTime FoundationYear { get; set; }
         public string HeadquartersLocation { get; set; } = null!;
-        public ICollection<CatalogCarDto> CatalogCars { get; set; } = null!;
     }
 }

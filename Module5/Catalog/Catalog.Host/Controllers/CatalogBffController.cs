@@ -4,6 +4,7 @@ using Catalog.Host.Models.Enums;
 using Catalog.Host.Models.Requests;
 using Catalog.Host.Models.Response;
 using Catalog.Host.Services.Interfaces;
+using Infrastructure.Filters;
 using Infrastructure.Identity;
 using Microsoft.AspNetCore.Authorization;
 
@@ -32,6 +33,7 @@ public class CatalogBffController : ControllerBase
     }
 
     [HttpPost]
+    [LogAsyncActionFilter("Items")]
     [AllowAnonymous]
     [ProducesResponseType(typeof(PaginatedItemsResponse<CatalogCarDto>), (int)HttpStatusCode.OK)]
     public async Task<IActionResult> Items(PaginatedItemsRequest<CatalogTypeFilter> request)
@@ -40,10 +42,10 @@ public class CatalogBffController : ControllerBase
     }
 
     [HttpPost]
+    [LogAsyncActionFilter("GetManufacturers")]
     [ProducesResponseType(typeof(GroupedEntitiesResponse<CatalogManufacturerDto>), (int)HttpStatusCode.OK)]
     public async Task<IActionResult> GetManufacturers()
     {
-        _logger.LogInformation($"User Id {User.Claims.FirstOrDefault(x => x.Type == "sub")?.Value}");
         return Ok(await _catalogManufacturerService.GetCatalogManufacturersAsync());
     }
 }

@@ -17,7 +17,8 @@ builder.Services.AddControllers(options =>
     {
         options.Filters.Add(typeof(HttpGlobalExceptionFilter));
     })
-    .AddJsonOptions(options => options.JsonSerializerOptions.WriteIndented = true);
+    .AddJsonOptions(options => options.JsonSerializerOptions.WriteIndented = true).AddNewtonsoftJson(options =>
+    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 
 builder.Services.AddSwaggerGen(options =>
 {
@@ -41,7 +42,8 @@ builder.Services.AddSwaggerGen(options =>
                 Scopes = new Dictionary<string, string>()
                 {
                     { "mvc", "website" },
-                    { "catalog.catalogitem", "catalog.catalogitem" }
+                    { "catalog.catalogcar", "catalog.catalogcar" },
+                    { "catalog.catalogmanufacturer", "catalog.catalogmanufacturer" }
                 }
             }
         }
@@ -63,7 +65,7 @@ builder.Services.AddTransient<ICatalogManufacturerRepository, CatalogManufacture
 builder.Services.AddTransient<ICatalogCarService, CatalogCarService>();
 builder.Services.AddTransient<ICatalogManufacturerService, CatalogManufacturerService>();
 
-builder.Services.AddDbContextFactory<ApplicationDbContext>(opts => opts.UseNpgsql(configuration["ConnectionString"]));
+builder.Services.AddDbContextFactory<ApplicationDbContext>(opts => opts.UseNpgsql(configuration["ConnectionString"] !));
 builder.Services.AddScoped<IDbContextWrapper<ApplicationDbContext>, DbContextWrapper<ApplicationDbContext>>();
 
 builder.Services.AddCors(options =>
@@ -78,7 +80,7 @@ builder.Services.AddCors(options =>
 });
 
 var app = builder.Build();
-
+AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 app.UseSwagger()
     .UseSwaggerUI(setup =>
     {

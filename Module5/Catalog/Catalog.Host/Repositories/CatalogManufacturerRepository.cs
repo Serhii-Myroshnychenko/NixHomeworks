@@ -19,10 +19,12 @@ public class CatalogManufacturerRepository : ICatalogManufacturerRepository
 
     public async Task<CatalogManufacturer> AddCatalogManufacturerAsync(string name, DateTime foundationYear, string headquartersLocation)
     {
+        _logger.LogInformation($"AddCatalogManufacturerAsync method with the following input parameters: name = {name}, foundationYear = {foundationYear}, headquartersLocation = {headquartersLocation}");
+
         var item = await _dbContext.AddAsync(new CatalogManufacturer()
         {
             Name = name,
-            FoundationYear = foundationYear,
+            FoundationYear = foundationYear.ToUniversalTime(),
             HeadquartersLocation = headquartersLocation
         });
 
@@ -35,6 +37,8 @@ public class CatalogManufacturerRepository : ICatalogManufacturerRepository
 
     public async Task<CatalogManufacturer?> DeleteCatalogManufacturerAsync(int id)
     {
+        _logger.LogInformation($"DeleteCatalogManufacturerAsync method with the following input parameters: Id = {id}");
+
         var manufacturer = await _dbContext.CatalogManufacturers
                 .FirstOrDefaultAsync(c => c.Id == id);
 
@@ -52,6 +56,8 @@ public class CatalogManufacturerRepository : ICatalogManufacturerRepository
 
     public async Task<GroupedEntities<CatalogManufacturer>> GetCatalogManufacturersAsync()
     {
+        _logger.LogInformation($"GetCatalogManufacturersAsync method");
+
         return new GroupedEntities<CatalogManufacturer>()
         {
             Data = await _dbContext.CatalogManufacturers.ToListAsync()
@@ -60,13 +66,15 @@ public class CatalogManufacturerRepository : ICatalogManufacturerRepository
 
     public async Task<CatalogManufacturer?> UpdateCatalogManufacturerAsync(int id, string name, DateTime foundationYear, string headquartersLocation)
     {
+        _logger.LogInformation($"UpdateCatalogManufacturerAsync method with the following input parameters: name = {name}, foundationYear = {foundationYear}, headquartersLocation = {headquartersLocation}");
+
         var item = await _dbContext.CatalogManufacturers
             .FirstOrDefaultAsync(c => c.Id == id);
 
         if (item != null)
         {
             item.Name = name;
-            item.FoundationYear = foundationYear;
+            item.FoundationYear = foundationYear.ToUniversalTime();
             item.HeadquartersLocation = headquartersLocation;
             item.CatalogCars = item.CatalogCars;
 

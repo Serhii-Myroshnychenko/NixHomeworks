@@ -2,6 +2,7 @@ using Catalog.Host.Models.Requests;
 using Catalog.Host.Models.Requests.CatalogCarRequests;
 using Catalog.Host.Models.Response;
 using Catalog.Host.Services.Interfaces;
+using Infrastructure.Filters;
 using Infrastructure.Identity;
 using Microsoft.AspNetCore.Authorization;
 
@@ -9,7 +10,7 @@ namespace Catalog.Host.Controllers;
 
 [ApiController]
 [Authorize(Policy = AuthPolicy.AllowClientPolicy)]
-[Scope("catalog.catalogitem")]
+[Scope("catalog.catalogcar")]
 [Route(ComponentDefaults.DefaultRoute)]
 public class CatalogCarController : ControllerBase
 {
@@ -25,6 +26,7 @@ public class CatalogCarController : ControllerBase
     }
 
     [HttpPost]
+    [LogAsyncActionFilter("Add")]
     [ProducesResponseType(typeof(CatalogCarResponse), (int)HttpStatusCode.OK)]
     public async Task<IActionResult> Add(CreateCatalogCarRequest request)
     {
@@ -33,6 +35,7 @@ public class CatalogCarController : ControllerBase
     }
 
     [HttpPost]
+    [LogAsyncActionFilter("Put")]
     [ProducesResponseType(typeof(CatalogCarResponse), (int)HttpStatusCode.OK)]
     public async Task<IActionResult> Put(UpdateCatalogCarRequest request)
     {
@@ -41,10 +44,28 @@ public class CatalogCarController : ControllerBase
     }
 
     [HttpPost]
+    [LogAsyncActionFilter("Delete")]
     [ProducesResponseType(typeof(CatalogCarResponse), (int)HttpStatusCode.OK)]
     public async Task<IActionResult> Delete(int id)
     {
         var result = await _catalogCarService.DeleteCatalogCarAsync(id);
         return Ok(new CatalogCarResponse() { Id = result.Id, Model = result.Model, Year = result.Year, Transmission = result.Transmission, Description = result.Description, Price = result.Price, EngineDisplacement = result.EngineDisplacement, PictureUrl = result.PictureUrl });
+    }
+
+    [HttpPost]
+    [LogAsyncActionFilter("GetById")]
+    [ProducesResponseType(typeof(CatalogCarResponse), (int)HttpStatusCode.OK)]
+    public async Task<IActionResult> GetById(int id)
+    {
+        var result = await _catalogCarService.GetCatalogCarByIdAsync(id);
+        return Ok(new CatalogCarResponse() { Id = result.Id, Model = result.Model, Year = result.Year, Transmission = result.Transmission, Description = result.Description, Price = result.Price, EngineDisplacement = result.EngineDisplacement, PictureUrl = result.PictureUrl });
+    }
+
+    [HttpPost]
+    [LogAsyncActionFilter("GetByManufacturer")]
+    [ProducesResponseType(typeof(GroupedEntitiesResponse<CatalogCarResponse>), (int)HttpStatusCode.OK)]
+    public async Task<IActionResult> GetByManufacturer(int manufacturerId)
+    {
+        return Ok(await _catalogCarService.GetCatalogCarByManufacturerAsync(manufacturerId));
     }
 }

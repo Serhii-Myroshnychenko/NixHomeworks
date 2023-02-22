@@ -47,11 +47,15 @@ public class CatalogCarService : BaseDataService<ApplicationDbContext>, ICatalog
         });
     }
 
-    public async Task<CatalogCarDto> GetCatalogCarByManufacturerAsync(int manufacturerId)
+    public async Task<GroupedEntitiesResponse<CatalogCarDto>> GetCatalogCarByManufacturerAsync(int manufacturerId)
     {
         return await ExecuteSafeAsync(async () =>
         {
-            return _mapper.Map<CatalogCarDto>(await _catalogCarRepository.GetByManufacturerAsync(manufacturerId));
+            var result = await _catalogCarRepository.GetByManufacturerAsync(manufacturerId);
+            return new GroupedEntitiesResponse<CatalogCarDto>()
+            {
+                Data = result.Data.Select(s => _mapper.Map<CatalogCarDto>(s)).ToList()
+            };
         });
     }
 

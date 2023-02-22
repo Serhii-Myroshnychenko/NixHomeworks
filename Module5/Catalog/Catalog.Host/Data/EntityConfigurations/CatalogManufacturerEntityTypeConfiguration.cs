@@ -6,12 +6,12 @@ public class CatalogManufacturerEntityTypeConfiguration
 {
     public void Configure(EntityTypeBuilder<CatalogManufacturer> builder)
     {
-        builder.ToTable("CatalogManufacturer");
+        builder.ToTable("CatalogManufacturers");
 
         builder.HasKey(cm => cm.Id);
 
         builder.Property(cm => cm.Id)
-            .UseHiLo("catalog_manufacturer_hilo")
+            .UseHiLo("catalog_manfacturers_hilo")
             .IsRequired();
 
         builder.Property(cm => cm.Name)

@@ -19,6 +19,8 @@ public class CatalogCarRepository : ICatalogCarRepository
 
     public async Task<CatalogCar?> AddCatalogCarAsync(string model, DateTime year, string transmission, decimal price, string description, string pictureFileName, double engineDisplacement, int catalogManufacturerId)
     {
+        _logger.LogInformation($"AddCatalogCarAsync input parameters: model = {model}, year = {year}, transmission = {transmission}, price = {price}, description = {description}, pictureFileName = {pictureFileName}, engineDisplacement = {engineDisplacement}, catalogManufacturerId = {catalogManufacturerId}");
+
         var catalogManufacturer = await _dbContext.CatalogManufacturers
             .FirstOrDefaultAsync(c => c.Id == catalogManufacturerId);
 
@@ -27,7 +29,7 @@ public class CatalogCarRepository : ICatalogCarRepository
             var item = await _dbContext.AddAsync(new CatalogCar
             {
                 Model = model,
-                Year = year,
+                Year = year.ToUniversalTime(),
                 Transmission = transmission,
                 Price = price,
                 Description = description,
@@ -67,20 +69,30 @@ public class CatalogCarRepository : ICatalogCarRepository
 
     public async Task<CatalogCar?> GetByIdAsync(int id)
     {
+        _logger.LogInformation($"GetByIdAsync method CatalogCar with the following parameters: id = {id}");
+
         return await _dbContext.CatalogCars
             .Include(c => c.CatalogManufacturer)
             .FirstOrDefaultAsync(c => c.Id == id);
     }
 
-    public async Task<CatalogCar?> GetByManufacturerAsync(int manufacturerId)
+    public async Task<GroupedEntities<CatalogCar>> GetByManufacturerAsync(int manufacturerId)
     {
-        return await _dbContext.CatalogCars
-            .Include(c => c.CatalogManufacturer)
-            .FirstOrDefaultAsync(c => c.CatalogManufacturerId == manufacturerId);
+        _logger.LogInformation($"GetByManufacturerAsync method CatalogCar with the following parameters: manufacturerId = {manufacturerId}");
+
+        return new GroupedEntities<CatalogCar>()
+        {
+            Data = await _dbContext.CatalogCars
+                .Where(cc => cc.CatalogManufacturerId == manufacturerId)
+                .Include(cc => cc.CatalogManufacturer)
+                .ToListAsync()
+        };
     }
 
     public async Task<PaginatedItems<CatalogCar>> GetByPageAsync(int pageIndex, int pageSize, int? manufacturerFilter)
     {
+        _logger.LogInformation($"GetByPageAsync method with the following input parameters: pageIndex = {pageIndex}, pageSize = {pageSize}, manufacturerFilter = {manufacturerFilter}");
+
         IQueryable<CatalogCar> query = _dbContext.CatalogCars;
 
         if (manufacturerFilter.HasValue)
@@ -96,11 +108,15 @@ public class CatalogCarRepository : ICatalogCarRepository
            .Take(pageSize)
            .ToListAsync();
 
+        _logger.LogInformation($"Result GetByPageAsync method with the following parameters: TotalCount = {totalItems}");
+
         return new PaginatedItems<CatalogCar>() { TotalCount = totalItems, Data = itemsOnPage };
     }
 
     public async Task<CatalogCar?> UpdateCatalogCarAsync(int id, string model, DateTime year, string transmission, decimal price, string description, string pictureFileName, double engineDisplacement, int catalogManufacturerId)
     {
+        _logger.LogInformation($"UpdateCatalogCarAsync method with the following input parameters: id = {id}, model = {model}, year = {year}, transmission = {transmission}, price = {price}, description = {description}, pictureFileName = {pictureFileName}, engineDisplacement = {engineDisplacement}, catalogManufacturerId = {catalogManufacturerId}");
+
         var item = await _dbContext.CatalogCars
             .Include(c => c.CatalogManufacturer)
             .FirstOrDefaultAsync(c => c.Id == id);
@@ -111,7 +127,7 @@ public class CatalogCarRepository : ICatalogCarRepository
         if (item != null && catalogManufacturer != null)
         {
             item.Model = model;
-            item.Year = year;
+            item.Year = year.ToUniversalTime();
             item.Transmission = transmission;
             item.Price = price;
             item.Description = description;
