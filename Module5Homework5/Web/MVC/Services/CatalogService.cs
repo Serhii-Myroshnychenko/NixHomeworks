@@ -48,13 +48,31 @@ public class CatalogService : ICatalogService
     {
         var result =  await _httpClient.SendAsync<GroupedEntities<CatalogBrand>, GroupedEntities<CatalogBrand>>
             ($"{_settings.Value.CatalogUrl}/GetBrands",HttpMethod.Post, null);
-        var list = new List<SelectListItem>();
-        list.AddRange(result.Data);
+
+        var ls = new List<SelectListItem>();
+
+        ls.AddRange(result.Data.Select(e => new SelectListItem()
+        {
+            Text = e.Brand,
+            Value = e.Id.ToString(),
+        }));
+
+        return ls;
     }
 
     public async Task<IEnumerable<SelectListItem>> GetTypes()
     {
-        return await _httpClient.SendAsync<GroupedEntities<CatalogType>, GroupedEntities<CatalogType>>
+        var result =  await _httpClient.SendAsync<GroupedEntities<CatalogType>, GroupedEntities<CatalogType>>
             ($"{_settings.Value.CatalogUrl}/GetTypes", HttpMethod.Post, null);
+
+        var ls = new List<SelectListItem>();
+
+        ls.AddRange(result.Data.Select(e => new SelectListItem()
+        {
+            Text = e.Type,
+            Value = e.Id.ToString(),
+        }));
+
+        return ls;
     }
 }
