@@ -2,6 +2,7 @@
 using IdentityModel.Client;
 using Microsoft.AspNetCore.Authentication;
 using Newtonsoft.Json;
+using System.Text;
 
 namespace Basket.Host.Services
 {
@@ -28,7 +29,7 @@ namespace Basket.Host.Services
                 client.SetBearerToken(token);
             }
 
-            var httpMessage = new HttpRequestMessage();
+            var httpMessage = new HttpRequestMessage ();
             httpMessage.RequestUri = new Uri(url);
             httpMessage.Method = method;
 
@@ -49,4 +50,5 @@ namespace Basket.Host.Services
 
             return default(TResponse)!;
         }
+    }
 }
