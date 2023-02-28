@@ -1,9 +1,10 @@
-using Basket.Host.Models;
+using Basket.Host.Models.Dtos;
+using Basket.Host.Models.Items;
 
 namespace Basket.Host.Services.Interfaces;
 
 public interface IBasketService
 {
-    Task TestAdd(string userId, string data);
-    Task<TestGetResponse> TestGet(string userId);
+    Task AddItems<T>(string userId, T data);
+    Task<BasketDto<CatalogCar>> GetItems(string userId);
 }

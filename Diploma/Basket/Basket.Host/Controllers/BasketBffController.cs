@@ -1,4 +1,6 @@
 using Basket.Host.Models;
+using Basket.Host.Models.Requests;
+using Basket.Host.Models.Responses;
 using Basket.Host.Services.Interfaces;
 using Infrastructure.Identity;
 using Microsoft.AspNetCore.Authorization;
@@ -23,19 +25,19 @@ public class BasketBffController : ControllerBase
     
     [HttpPost]
     [ProducesResponseType((int)HttpStatusCode.OK)]
-    public async Task<IActionResult> TestAdd(TestAddRequest data)
+    public async Task<IActionResult> AddCarsToBasket(AddToBasketRequest request)
     {
         var basketId = User.Claims.FirstOrDefault(x => x.Type == "sub")?.Value;
-        await _basketService.TestAdd(basketId!, data.Data);
+        await _basketService.AddItems(basketId!, request.Data);
         return Ok();
     }
 
     [HttpPost]
-    [ProducesResponseType(typeof(TestGetResponse), (int)HttpStatusCode.OK)]
-    public async Task<IActionResult> TestGet()
+    [ProducesResponseType(typeof(GetBasketResponse), (int)HttpStatusCode.OK)]
+    public async Task<IActionResult> GetBasket()
     {
         var basketId = User.Claims.FirstOrDefault(x => x.Type == "sub")?.Value;
-        var response = await _basketService.TestGet(basketId!);
-        return Ok(response);
+        var response = await _basketService.GetItems(basketId!);
+        return Ok(new GetBasketResponse() { Data = response.Data});
     }
 }

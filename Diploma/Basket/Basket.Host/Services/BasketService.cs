@@ -1,4 +1,5 @@
-using Basket.Host.Models;
+using Basket.Host.Models.Dtos;
+using Basket.Host.Models.Items;
 using Basket.Host.Services.Interfaces;
 
 namespace Basket.Host.Services;
@@ -11,15 +12,15 @@ public class BasketService : IBasketService
     {
         _cacheService = cacheService;
     }
-    
-    public async Task TestAdd(string userId, string data)
+
+    public async Task AddItems<T>(string userId, T data)
     {
-       await _cacheService.AddOrUpdateAsync(userId, data);
+        await _cacheService.AddOrUpdateAsync(userId, data);
     }
 
-    public async Task<TestGetResponse> TestGet(string userId)
+    public async Task<BasketDto<CatalogCar>> GetItems(string userId)
     {
-        var result = await _cacheService.GetAsync<string>(userId);
-        return new TestGetResponse() { Data = result };
+        var result = await _cacheService.GetAsync<List<CatalogCar>>(userId);
+        return new BasketDto<CatalogCar>() { Data = result };
     }
 }
