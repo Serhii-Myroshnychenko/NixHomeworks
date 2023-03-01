@@ -1,6 +1,6 @@
 ﻿@model MVC.ViewModels.BasketViewModels.BasketIndexViewModel
 
-<div class="row checkoutForm">
+@*<div class="row checkoutForm">
     <h2>Your shopping cart</h2>
     <h4>Here are the drinks in your shopping cart.</h4>
     <table class="table table-bordered table-striped">
@@ -14,7 +14,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (var line in Model.CatalogCars)
+            @foreach (var line in Model.CatalogBasketCars)
             {
                 <tr>
                     <td class="text-center">@line.Id</td>
@@ -34,16 +34,57 @@
 
     <div class="text-right">
         <div class="btn-group ">
-            <a class="btn btn-success" asp-controller="Order" asp-action="Checkout">Check out</a>
-            <a class="btn-group">
-                <a class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                    Add more drinks<span class="caret"></span>
-                </a>
-                <ul class="dropdown-menu" role="menu">
-                    <li><a asp-controller="Drink" asp-action="List" asp-route-category="Alcoholic">Alcoholic</a></li>
-                    <li><a asp-controller="Drink" asp-action="List" asp-route-category="Non-alcoholic">Non Alcoholic</a></li>
-                </ul>
-            </a>
+            
         </div>
     </div>
+</div>
+*@
+
+
+
+
+<section class="esh-catalog-hero">
+    <div class="container">
+    </div>
+</section>
+
+<section class="esh-catalog-filters">
+    <div class="container">
+        <form asp-action="Index" asp-controller="Basket" method="post">
+            <label class="esh-catalog-label" data-title="type">
+                <select asp-for="Total" asp-items="@(new SelectList(Model.CatalogBasketCars))" class="esh-catalog-filter"></select>
+            </label>
+            <input class="esh-catalog-send" type="image" src="~/images/arrow-right.svg" />
+        </form>
+    </div>
+</section>
+
+<div class="container">
+    <div class="row">
+        <br />
+        @if(ViewBag.BasketInoperativeMsg != null)
+        {
+        <div class="alert alert-warning" role="alert">
+            &nbsp;@ViewBag.BasketInoperativeMsg
+        </div>
+        }
+    </div>
+
+    @if (Model.CatalogBasketCars.Count() > 0)
+    {
+    <div class="esh-catalog-items row">
+        @foreach (var catalogCar in Model.CatalogBasketCars)
+            {
+        <div class="esh-catalog-item col-md-4">
+            <partial name="_cars" model="catalogCar" />
+        </div>
+            }
+    </div>
+    }
+    else
+    {
+    <div class="esh-catalog-items row">
+        THERE ARE NO RESULTS THAT MATCH YOUR SEARCH
+    </div>
+    }
 </div>

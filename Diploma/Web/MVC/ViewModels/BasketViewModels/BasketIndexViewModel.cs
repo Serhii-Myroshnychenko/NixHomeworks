@@ -2,7 +2,7 @@
 {
     public class BasketIndexViewModel
     {
-        public IEnumerable<CatalogCar> CatalogCars { get; set; }
+        public IEnumerable<CatalogBasketCar> CatalogBasketCars { get; set; }
         public decimal Total { get; set; }
     }
 }

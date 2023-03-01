@@ -38,6 +38,7 @@ public class CatalogBffController : ControllerBase
     [ProducesResponseType(typeof(PaginatedItemsResponse<CatalogCarDto>), (int)HttpStatusCode.OK)]
     public async Task<IActionResult> Items(PaginatedItemsRequest<CatalogTypeFilter> request)
     {
+        _logger.LogInformation($"Filteeeeeeeeeeeeeeeeeeeeeeeeeeeeers: {request.Filters}");
         return Ok(await _catalogCarService.GetCatalogCarsAsync(request.PageSize, request.PageIndex, request.Filters));
     }
 

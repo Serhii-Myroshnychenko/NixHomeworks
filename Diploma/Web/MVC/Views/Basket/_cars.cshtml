@@ -1,0 +1,13 @@
+﻿@model CatalogBasketCar
+
+
+<form>
+
+    <div class="esh-catalog-name">
+        <span>@Model.Model</span>
+    </div>
+    <div class="esh-catalog-price">
+        <span>@Model.Price.ToString("N2")</span>
+    </div>
+    <input type="hidden" asp-for="@Model.Id" name="id" />
+</form>

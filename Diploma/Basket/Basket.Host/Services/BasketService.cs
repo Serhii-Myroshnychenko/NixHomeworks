@@ -21,6 +21,10 @@ public class BasketService : IBasketService
     public async Task<BasketDto<CatalogCar>> GetItems(string userId)
     {
         var result = await _cacheService.GetAsync<List<CatalogCar>>(userId);
+        if(result == null)
+        {
+            result = new List<CatalogCar>();
+        }
         return new BasketDto<CatalogCar>() { Data = result };
     }
 }

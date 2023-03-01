@@ -9,6 +9,7 @@ using Microsoft.IdentityModel.Tokens;
 using MVC.Services;
 using MVC.Services.Interfaces;
 using MVC.ViewModels;
+using AutoMapper;
 
 var configuration = GetConfiguration();
 
@@ -55,9 +56,11 @@ builder.Services.AddAuthentication(options =>
 builder.Services.Configure<AppSettings>(configuration);
 
 builder.Services.AddHttpClient();
+builder.Services.AddAutoMapper(typeof(Program));
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 builder.Services.AddTransient<IHttpClientService, HttpClientService>();
 builder.Services.AddTransient<ICatalogService, CatalogService>();
+builder.Services.AddTransient<IBasketService, BasketService>();
 builder.Services.AddTransient<IIdentityParser<ApplicationUser>, IdentityParser>();
 
 var app = builder.Build();

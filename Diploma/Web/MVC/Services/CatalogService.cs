@@ -27,7 +27,9 @@ public class CatalogService : ICatalogService
         {
             filters.Add(CatalogTypeFilter.Manufacturer, manufacturer.Value);
         }
-        
+
+        _logger.LogInformation($"Catlog Service ----------------------- Page: {page}, Take : {take}, Manufacturer: {manufacturer}");
+
         var result = await _httpClient.SendAsync<Catalog, PaginatedItemsRequest<CatalogTypeFilter>>($"{_settings.Value.CatalogUrl}/items",
            HttpMethod.Post, 
            new PaginatedItemsRequest<CatalogTypeFilter>()
