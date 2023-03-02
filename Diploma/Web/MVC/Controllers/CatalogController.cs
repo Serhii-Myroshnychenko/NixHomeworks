@@ -39,7 +39,7 @@ public class CatalogController : Controller
             CatalogCars = catalog.Data,
             CatalogManufacturers = await _catalogService.GetCatalogManufacturers(),
             PaginationInfo = info,
-            ManufacturerFilterApplied = manufacturersFilterApplied
+            ManufacturersFilterApplied = manufacturersFilterApplied
         };
 
         vm.PaginationInfo.Next = (vm.PaginationInfo.ActualPage == vm.PaginationInfo.TotalPages - 1) ? "is-disabled" : "";

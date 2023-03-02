@@ -50,7 +50,7 @@
 
 <section class="esh-catalog-filters">
     <div class="container">
-        <form asp-action="Index" asp-controller="Basket" method="post">
+        <form asp-action="Index" asp-controller="Basket" method="post" >
             <label class="esh-catalog-label" data-title="type">
                 <select asp-for="Total" asp-items="@(new SelectList(Model.CatalogBasketCars))" class="esh-catalog-filter"></select>
             </label>

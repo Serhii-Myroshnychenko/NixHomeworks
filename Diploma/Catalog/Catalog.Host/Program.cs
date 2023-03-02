@@ -7,6 +7,7 @@ using Catalog.Host.Services;
 using Catalog.Host.Services.Interfaces;
 using Infrastructure.Extensions;
 using Infrastructure.Filters;
+using Infrastructure.Middlewares;
 using Microsoft.OpenApi.Models;
 
 var configuration = GetConfiguration();
@@ -67,6 +68,10 @@ builder.Services.AddTransient<ICatalogManufacturerService, CatalogManufacturerSe
 
 builder.Services.AddDbContextFactory<ApplicationDbContext>(opts => opts.UseNpgsql(configuration["ConnectionString"] !));
 builder.Services.AddScoped<IDbContextWrapper<ApplicationDbContext>, DbContextWrapper<ApplicationDbContext>>();
+builder.Services.AddStackExchangeRedisCache(options =>
+{
+    options.Configuration = configuration["Redis__Host"];
+});
 
 builder.Services.AddCors(options =>
 {
@@ -94,7 +99,7 @@ app.UseCors("CorsPolicy");
 
 app.UseAuthentication();
 app.UseAuthorization();
-
+app.UseMiddleware<RateLimitMiddleware>();
 app.UseEndpoints(endpoints =>
 {
     endpoints.MapDefaultControllerRoute();

@@ -2,6 +2,7 @@ using Basket.Host.Models;
 using Basket.Host.Models.Requests;
 using Basket.Host.Models.Responses;
 using Basket.Host.Services.Interfaces;
+using Infrastructure.Filters;
 using Infrastructure.Identity;
 using Microsoft.AspNetCore.Authorization;
 
@@ -33,6 +34,7 @@ public class BasketBffController : ControllerBase
     }
 
     [HttpPost]
+    [RateLimit]
     [ProducesResponseType(typeof(GetBasketResponse), (int)HttpStatusCode.OK)]
     public async Task<IActionResult> GetBasket()
     {
