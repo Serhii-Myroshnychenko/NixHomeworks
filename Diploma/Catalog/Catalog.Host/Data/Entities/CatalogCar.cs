@@ -10,6 +10,7 @@
         public string Description { get; set; } = null!;
         public string PictureFileName { get; set; } = null!;
         public double EngineDisplacement { get; set; }
+        public int Quantity { get; set; }
         public int CatalogManufacturerId { get; set; }
         public CatalogManufacturer CatalogManufacturer { get; set; } = null!;
     }

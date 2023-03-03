@@ -22,10 +22,10 @@ namespace Catalog.Host.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.HasSequence("catalog_cars_hilo")
+            modelBuilder.HasSequence("catalogs_c_hilo")
                 .IncrementsBy(10);
 
-            modelBuilder.HasSequence("catalog_manfacturers_hilo")
+            modelBuilder.HasSequence("catalogs_m_hilo")
                 .IncrementsBy(10);
 
             modelBuilder.Entity("Catalog.Host.Data.Entities.CatalogCar", b =>
@@ -34,7 +34,7 @@ namespace Catalog.Host.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer");
 
-                    NpgsqlPropertyBuilderExtensions.UseHiLo(b.Property<int>("Id"), "catalog_cars_hilo");
+                    NpgsqlPropertyBuilderExtensions.UseHiLo(b.Property<int>("Id"), "catalogs_c_hilo");
 
                     b.Property<int>("CatalogManufacturerId")
                         .HasColumnType("integer");
@@ -59,6 +59,9 @@ namespace Catalog.Host.Migrations
                     b.Property<decimal>("Price")
                         .HasColumnType("numeric");
 
+                    b.Property<int>("Quantity")
+                        .HasColumnType("integer");
+
                     b.Property<string>("Transmission")
                         .IsRequired()
                         .HasMaxLength(50)
@@ -71,7 +74,7 @@ namespace Catalog.Host.Migrations
 
                     b.HasIndex("CatalogManufacturerId");
 
-                    b.ToTable("Catalogs", (string)null);
+                    b.ToTable("CarCatalogs", (string)null);
                 });
 
             modelBuilder.Entity("Catalog.Host.Data.Entities.CatalogManufacturer", b =>
@@ -80,7 +83,7 @@ namespace Catalog.Host.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer");
 
-                    NpgsqlPropertyBuilderExtensions.UseHiLo(b.Property<int>("Id"), "catalog_manfacturers_hilo");
+                    NpgsqlPropertyBuilderExtensions.UseHiLo(b.Property<int>("Id"), "catalogs_m_hilo");
 
                     b.Property<DateTime>("FoundationYear")
                         .HasColumnType("timestamp with time zone");
@@ -97,7 +100,7 @@ namespace Catalog.Host.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("CatalogManufacturers", (string)null);
+                    b.ToTable("CatalogsManufacturers", (string)null);
                 });
 
             modelBuilder.Entity("Catalog.Host.Data.Entities.CatalogCar", b =>

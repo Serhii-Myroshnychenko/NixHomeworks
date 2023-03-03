@@ -1,7 +1,7 @@
 ﻿@model CatalogCar
 
 
-<form>
+<form asp-action="AddToBasket" asp-controller="Basket" method="post">
 
     <img class="esh-catalog-thumbnail" src="@Model.PictureUrl" />
 
@@ -11,5 +11,19 @@
     <div class="esh-catalog-price">
         <span>@Model.Price.ToString("N2")</span>
     </div>
-    <input type="hidden" asp-for="@Model.Id" name="id" />
+    <div>
+        <span>Quantity: @Model.Quantity.ToString()</span>
+    </div>
+    <input type="hidden" asp-for="@Model.Id" name="Id" />
+    <input type="hidden" asp-for="@Model.Model" name="Model" />
+    <input type="hidden" asp-for="@Model.Year" name="Year" />
+    <input type="hidden" asp-for="@Model.Transmission" name="Transmission" />
+    <input type="hidden" asp-for="@Model.Price" name="Price" />
+    <input type="hidden" asp-for="@Model.Description" name="Description" />
+    <input type="hidden" asp-for="@Model.PictureUrl" name="PictureUrl" />
+    <input type="hidden" asp-for="@Model.EngineDisplacement" name="EngineDisplacement" />
+    <input type="hidden" asp-for="@Model.Quantity" name="Quantity" />
+    <input type="hidden" asp-for="@Model.CatalogManufacturer" name="CatalogManufacturer" />
+    <button type="submit">Add to Cart</button>
 </form>
+    

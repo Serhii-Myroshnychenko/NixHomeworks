@@ -30,8 +30,8 @@ public class CatalogCarController : ControllerBase
     [ProducesResponseType(typeof(CatalogCarResponse), (int)HttpStatusCode.OK)]
     public async Task<IActionResult> Add(CreateCatalogCarRequest request)
     {
-        var result = await _catalogCarService.AddCatalogCarAsync(request.Model, request.Year, request.Transmission, request.Price, request.Description, request.PictureFileName, request.EngineDisplacement, request.CatalogManufacturerId);
-        return Ok(new CatalogCarResponse() { Id = result.Id, Model = result.Model, Year = result.Year, Transmission = result.Transmission, Description = result.Description, Price = result.Price, EngineDisplacement = result.EngineDisplacement, PictureUrl = result.PictureUrl });
+        var result = await _catalogCarService.AddCatalogCarAsync(request.Model, request.Year, request.Transmission, request.Price, request.Description, request.PictureFileName, request.EngineDisplacement, request.Quantity, request.CatalogManufacturerId);
+        return Ok(new CatalogCarResponse() { Id = result.Id, Model = result.Model, Year = result.Year, Transmission = result.Transmission, Description = result.Description, Price = result.Price, EngineDisplacement = result.EngineDisplacement, PictureUrl = result.PictureUrl, Quantity = result.Quantity });
     }
 
     [HttpPost]
@@ -39,8 +39,8 @@ public class CatalogCarController : ControllerBase
     [ProducesResponseType(typeof(CatalogCarResponse), (int)HttpStatusCode.OK)]
     public async Task<IActionResult> Put(UpdateCatalogCarRequest request)
     {
-        var result = await _catalogCarService.UpdateCatalogCarAsync(request.Id, request.Model, request.Year, request.Transmission, request.Price, request.Description, request.PictureFileName, request.EngineDisplacement, request.CatalogManufacturerId);
-        return Ok(new CatalogCarResponse() { Id = result.Id, Model = result.Model, Year = result.Year, Transmission = result.Transmission, Description = result.Description, Price = result.Price, EngineDisplacement = result.EngineDisplacement, PictureUrl = result.PictureUrl });
+        var result = await _catalogCarService.UpdateCatalogCarAsync(request.Id, request.Model, request.Year, request.Transmission, request.Price, request.Description, request.PictureFileName, request.EngineDisplacement, request.Quantity, request.CatalogManufacturerId);
+        return Ok(new CatalogCarResponse() { Id = result.Id, Model = result.Model, Year = result.Year, Transmission = result.Transmission, Description = result.Description, Price = result.Price, EngineDisplacement = result.EngineDisplacement, PictureUrl = result.PictureUrl, Quantity = result.Quantity });
     }
 
     [HttpPost]
@@ -49,7 +49,7 @@ public class CatalogCarController : ControllerBase
     public async Task<IActionResult> Delete(int id)
     {
         var result = await _catalogCarService.DeleteCatalogCarAsync(id);
-        return Ok(new CatalogCarResponse() { Id = result.Id, Model = result.Model, Year = result.Year, Transmission = result.Transmission, Description = result.Description, Price = result.Price, EngineDisplacement = result.EngineDisplacement, PictureUrl = result.PictureUrl });
+        return Ok(new CatalogCarResponse() { Id = result.Id, Model = result.Model, Year = result.Year, Transmission = result.Transmission, Description = result.Description, Price = result.Price, EngineDisplacement = result.EngineDisplacement, PictureUrl = result.PictureUrl, Quantity = result.Quantity });
     }
 
     [HttpPost]
@@ -58,7 +58,7 @@ public class CatalogCarController : ControllerBase
     public async Task<IActionResult> GetById(int id)
     {
         var result = await _catalogCarService.GetCatalogCarByIdAsync(id);
-        return Ok(new CatalogCarResponse() { Id = result.Id, Model = result.Model, Year = result.Year, Transmission = result.Transmission, Description = result.Description, Price = result.Price, EngineDisplacement = result.EngineDisplacement, PictureUrl = result.PictureUrl });
+        return Ok(new CatalogCarResponse() { Id = result.Id, Model = result.Model, Year = result.Year, Transmission = result.Transmission, Description = result.Description, Price = result.Price, EngineDisplacement = result.EngineDisplacement, PictureUrl = result.PictureUrl, Quantity = result.Quantity });
     }
 
     [HttpPost]

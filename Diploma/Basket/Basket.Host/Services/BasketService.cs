@@ -18,13 +18,13 @@ public class BasketService : IBasketService
         await _cacheService.AddOrUpdateAsync(userId, data);
     }
 
-    public async Task<BasketDto<CatalogCar>> GetItems(string userId)
+    public async Task<BasketDto<CatalogBasketCar>> GetItems(string userId)
     {
-        var result = await _cacheService.GetAsync<List<CatalogCar>>(userId);
+        var result = await _cacheService.GetAsync<List<CatalogBasketCar>>(userId);
         if(result == null)
         {
-            result = new List<CatalogCar>();
+            result = new List<CatalogBasketCar>();
         }
-        return new BasketDto<CatalogCar>() { Data = result };
+        return new BasketDto<CatalogBasketCar>() { Data = result };
     }
 }

@@ -4,6 +4,6 @@ namespace Basket.Host.Models.Responses
 {
     public class GetBasketResponse
     {
-        public IEnumerable<CatalogCar> Data { get; set; } = null!;
+        public IEnumerable<CatalogBasketCar> Data { get; set; } = null!;
     }
 }

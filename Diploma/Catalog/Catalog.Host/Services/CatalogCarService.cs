@@ -23,11 +23,11 @@ public class CatalogCarService : BaseDataService<ApplicationDbContext>, ICatalog
         _mapper = mapper;
     }
 
-    public async Task<CatalogCarDto> AddCatalogCarAsync(string model, DateTime year, string transmission, decimal price, string description, string pictureFileName, double engineDisplacement, int catalogManufacturerId)
+    public async Task<CatalogCarDto> AddCatalogCarAsync(string model, DateTime year, string transmission, decimal price, string description, string pictureFileName, double engineDisplacement, int quantity, int catalogManufacturerId)
     {
         return await ExecuteSafeAsync(async () =>
         {
-            return _mapper.Map<CatalogCarDto>(await _catalogCarRepository.AddCatalogCarAsync(model, year, transmission, price, description, pictureFileName, engineDisplacement, catalogManufacturerId));
+            return _mapper.Map<CatalogCarDto>(await _catalogCarRepository.AddCatalogCarAsync(model, year, transmission, price, description, pictureFileName, engineDisplacement, quantity, catalogManufacturerId));
         });
     }
 
@@ -89,11 +89,11 @@ public class CatalogCarService : BaseDataService<ApplicationDbContext>, ICatalog
         });
     }
 
-    public async Task<CatalogCarDto> UpdateCatalogCarAsync(int id, string model, DateTime year, string transmission, decimal price, string description, string pictureFileName, double engineDisplacement, int catalogManufacturerId)
+    public async Task<CatalogCarDto> UpdateCatalogCarAsync(int id, string model, DateTime year, string transmission, decimal price, string description, string pictureFileName, double engineDisplacement, int quantity, int catalogManufacturerId)
     {
         return await ExecuteSafeAsync(async () =>
         {
-            return _mapper.Map<CatalogCarDto>(await _catalogCarRepository.UpdateCatalogCarAsync(id, model, year, transmission, price, description, pictureFileName, engineDisplacement, catalogManufacturerId));
+            return _mapper.Map<CatalogCarDto>(await _catalogCarRepository.UpdateCatalogCarAsync(id, model, year, transmission, price, description, pictureFileName, engineDisplacement, quantity, catalogManufacturerId));
         });
     }
 }

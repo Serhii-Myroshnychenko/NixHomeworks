@@ -14,10 +14,13 @@ namespace MVC.Controllers
         }
         public async Task<IActionResult> Index()
         {
+            var items = await _basketService.GetBasketItems();
+            var total = items.Sum(c => c.Price * c.Quantity);
+
             var basketViewModel = new BasketIndexViewModel()
             {
-                CatalogBasketCars = await _basketService.GetBasketItems(),
-                Total = 12
+                CatalogBasketCars = items,
+                Total = total
             };
 
             return View(basketViewModel);
@@ -25,6 +28,11 @@ namespace MVC.Controllers
         public async Task<IActionResult> AddToBasket(CatalogCar car)
         {
             await _basketService.AddToBasket(car);
+            return RedirectToAction("Index");
+        }
+        public async Task<IActionResult> RemoveFromBasket(CatalogBasketCar car)
+        {
+            await _basketService.RemoveFromBasket(car);
             return RedirectToAction("Index");
         }
     }

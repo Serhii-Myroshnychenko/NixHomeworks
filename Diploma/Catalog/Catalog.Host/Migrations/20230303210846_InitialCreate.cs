@@ -10,15 +10,15 @@ namespace Catalog.Host.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateSequence(
-                name: "catalog_cars_hilo",
+                name: "catalogs_c_hilo",
                 incrementBy: 10);
 
             migrationBuilder.CreateSequence(
-                name: "catalog_manfacturers_hilo",
+                name: "catalogs_m_hilo",
                 incrementBy: 10);
 
             migrationBuilder.CreateTable(
-                name: "CatalogManufacturers",
+                name: "CatalogsManufacturers",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "integer", nullable: false),
@@ -28,11 +28,11 @@ namespace Catalog.Host.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_CatalogManufacturers", x => x.Id);
+                    table.PrimaryKey("PK_CatalogsManufacturers", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Catalogs",
+                name: "CarCatalogs",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "integer", nullable: false),
@@ -43,38 +43,39 @@ namespace Catalog.Host.Migrations
                     Description = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: false),
                     PictureFileName = table.Column<string>(type: "text", nullable: false),
                     EngineDisplacement = table.Column<double>(type: "double precision", nullable: false),
+                    Quantity = table.Column<int>(type: "integer", nullable: false),
                     CatalogManufacturerId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Catalogs", x => x.Id);
+                    table.PrimaryKey("PK_CarCatalogs", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Catalogs_CatalogManufacturers_CatalogManufacturerId",
+                        name: "FK_CarCatalogs_CatalogsManufacturers_CatalogManufacturerId",
                         column: x => x.CatalogManufacturerId,
-                        principalTable: "CatalogManufacturers",
+                        principalTable: "CatalogsManufacturers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Catalogs_CatalogManufacturerId",
-                table: "Catalogs",
+                name: "IX_CarCatalogs_CatalogManufacturerId",
+                table: "CarCatalogs",
                 column: "CatalogManufacturerId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Catalogs");
+                name: "CarCatalogs");
 
             migrationBuilder.DropTable(
-                name: "CatalogManufacturers");
+                name: "CatalogsManufacturers");
 
             migrationBuilder.DropSequence(
-                name: "catalog_cars_hilo");
+                name: "catalogs_c_hilo");
 
             migrationBuilder.DropSequence(
-                name: "catalog_manfacturers_hilo");
+                name: "catalogs_m_hilo");
         }
     }
 }

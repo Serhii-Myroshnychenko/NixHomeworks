@@ -17,9 +17,9 @@ public class CatalogCarRepository : ICatalogCarRepository
         _logger = logger;
     }
 
-    public async Task<CatalogCar?> AddCatalogCarAsync(string model, DateTime year, string transmission, decimal price, string description, string pictureFileName, double engineDisplacement, int catalogManufacturerId)
+    public async Task<CatalogCar?> AddCatalogCarAsync(string model, DateTime year, string transmission, decimal price, string description, string pictureFileName, double engineDisplacement, int quantity, int catalogManufacturerId)
     {
-        _logger.LogInformation($"AddCatalogCarAsync input parameters: model = {model}, year = {year}, transmission = {transmission}, price = {price}, description = {description}, pictureFileName = {pictureFileName}, engineDisplacement = {engineDisplacement}, catalogManufacturerId = {catalogManufacturerId}");
+        _logger.LogInformation($"AddCatalogCarAsync input parameters: model = {model}, year = {year}, transmission = {transmission}, price = {price}, description = {description}, pictureFileName = {pictureFileName}, engineDisplacement = {engineDisplacement}, quantity = {quantity}, catalogManufacturerId = {catalogManufacturerId}");
 
         var catalogManufacturer = await _dbContext.CatalogManufacturers
             .FirstOrDefaultAsync(c => c.Id == catalogManufacturerId);
@@ -35,6 +35,7 @@ public class CatalogCarRepository : ICatalogCarRepository
                 Description = description,
                 PictureFileName = pictureFileName,
                 EngineDisplacement = engineDisplacement,
+                Quantity = quantity,
                 CatalogManufacturerId = catalogManufacturerId,
                 CatalogManufacturer = catalogManufacturer
             });
@@ -113,9 +114,9 @@ public class CatalogCarRepository : ICatalogCarRepository
         return new PaginatedItems<CatalogCar>() { TotalCount = totalItems, Data = itemsOnPage };
     }
 
-    public async Task<CatalogCar?> UpdateCatalogCarAsync(int id, string model, DateTime year, string transmission, decimal price, string description, string pictureFileName, double engineDisplacement, int catalogManufacturerId)
+    public async Task<CatalogCar?> UpdateCatalogCarAsync(int id, string model, DateTime year, string transmission, decimal price, string description, string pictureFileName, double engineDisplacement, int quantity, int catalogManufacturerId)
     {
-        _logger.LogInformation($"UpdateCatalogCarAsync method with the following input parameters: id = {id}, model = {model}, year = {year}, transmission = {transmission}, price = {price}, description = {description}, pictureFileName = {pictureFileName}, engineDisplacement = {engineDisplacement}, catalogManufacturerId = {catalogManufacturerId}");
+        _logger.LogInformation($"UpdateCatalogCarAsync method with the following input parameters: id = {id}, model = {model}, year = {year}, transmission = {transmission}, price = {price}, description = {description}, pictureFileName = {pictureFileName}, engineDisplacement = {engineDisplacement}, quantity = {quantity}, catalogManufacturerId = {catalogManufacturerId}");
 
         var item = await _dbContext.CatalogCars
             .Include(c => c.CatalogManufacturer)
@@ -133,6 +134,7 @@ public class CatalogCarRepository : ICatalogCarRepository
             item.Description = description;
             item.PictureFileName = pictureFileName;
             item.EngineDisplacement = engineDisplacement;
+            item.Quantity = quantity;
             item.CatalogManufacturerId = catalogManufacturerId;
             item.CatalogManufacturer = catalogManufacturer;
 

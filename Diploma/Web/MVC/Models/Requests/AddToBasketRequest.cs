@@ -1,7 +1,6 @@
-﻿using Basket.Host.Models.Items;
-using System.ComponentModel.DataAnnotations;
+﻿using MVC.ViewModels;
 
-namespace Basket.Host.Models.Requests
+namespace MVC.Models.Requests
 {
     public class AddToBasketRequest
     {

@@ -23,6 +23,7 @@ public class CatalogCarServiceTest
         Description = "TestTestTestTest",
         PictureFileName = "3.png",
         EngineDisplacement = 2.2,
+        Quantity = 5,
         CatalogManufacturerId = 1
     };
 
@@ -36,6 +37,7 @@ public class CatalogCarServiceTest
         Description = "TestTestTestTest",
         PictureUrl = "3.png",
         EngineDisplacement = 2.2,
+        Quantity = 5,
         CatalogManufacturer = new () { Id = 1, Name = "Test", FoundationYear = new DateTime(2002, 12, 12), HeadquartersLocation = "Test" }
     };
 
@@ -64,13 +66,14 @@ public class CatalogCarServiceTest
             It.IsAny<string>(),
             It.IsAny<string>(),
             It.IsAny<double>(),
+            It.IsAny<int>(),
             It.IsAny<int>())).ReturnsAsync(_testCatalogCar);
 
         _mapper.Setup(s => s.Map<CatalogCarDto>(
            It.Is<CatalogCar>(i => i.Equals(_testCatalogCar)))).Returns(_testCatalogCarDto);
 
         // act
-        var result = await _catalogCarService.AddCatalogCarAsync(_testCatalogCar.Model, _testCatalogCar.Year, _testCatalogCar.Transmission, _testCatalogCar.Price, _testCatalogCar.Description, _testCatalogCar.PictureFileName, _testCatalogCar.EngineDisplacement, _testCatalogCar.CatalogManufacturerId);
+        var result = await _catalogCarService.AddCatalogCarAsync(_testCatalogCar.Model, _testCatalogCar.Year, _testCatalogCar.Transmission, _testCatalogCar.Price, _testCatalogCar.Description, _testCatalogCar.PictureFileName, _testCatalogCar.EngineDisplacement, _testCatalogCar.Quantity, _testCatalogCar.CatalogManufacturerId);
 
         // assert
         result.Should().Be(_testCatalogCarDto);
@@ -90,10 +93,11 @@ public class CatalogCarServiceTest
             It.IsAny<string>(),
             It.IsAny<string>(),
             It.IsAny<double>(),
+            It.IsAny<int>(),
             It.IsAny<int>())).ReturnsAsync(testResult);
 
         // act
-        var result = await _catalogCarService.AddCatalogCarAsync(_testCatalogCar.Model, _testCatalogCar.Year, _testCatalogCar.Transmission, _testCatalogCar.Price, _testCatalogCar.Description, _testCatalogCar.PictureFileName, _testCatalogCar.EngineDisplacement, _testCatalogCar.CatalogManufacturerId);
+        var result = await _catalogCarService.AddCatalogCarAsync(_testCatalogCar.Model, _testCatalogCar.Year, _testCatalogCar.Transmission, _testCatalogCar.Price, _testCatalogCar.Description, _testCatalogCar.PictureFileName, _testCatalogCar.EngineDisplacement, _testCatalogCar.Quantity, _testCatalogCar.CatalogManufacturerId);
 
         // assert
         result.Should().Be(testResult);
@@ -112,13 +116,14 @@ public class CatalogCarServiceTest
             It.IsAny<string>(),
             It.IsAny<string>(),
             It.IsAny<double>(),
+            It.IsAny<int>(),
             It.IsAny<int>())).ReturnsAsync(_testCatalogCar);
 
         _mapper.Setup(s => s.Map<CatalogCarDto>(
            It.Is<CatalogCar>(i => i.Equals(_testCatalogCar)))).Returns(_testCatalogCarDto);
 
         // act
-        var result = await _catalogCarService.UpdateCatalogCarAsync(_testCatalogCar.Id, _testCatalogCar.Model, _testCatalogCar.Year, _testCatalogCar.Transmission, _testCatalogCar.Price, _testCatalogCar.Description, _testCatalogCar.PictureFileName, _testCatalogCar.EngineDisplacement, _testCatalogCar.CatalogManufacturerId);
+        var result = await _catalogCarService.UpdateCatalogCarAsync(_testCatalogCar.Id, _testCatalogCar.Model, _testCatalogCar.Year, _testCatalogCar.Transmission, _testCatalogCar.Price, _testCatalogCar.Description, _testCatalogCar.PictureFileName, _testCatalogCar.EngineDisplacement, _testCatalogCar.Quantity, _testCatalogCar.CatalogManufacturerId);
 
         // assert
         result.Should().Be(_testCatalogCarDto);
@@ -139,10 +144,11 @@ public class CatalogCarServiceTest
             It.IsAny<string>(),
             It.IsAny<string>(),
             It.IsAny<double>(),
+            It.IsAny<int>(),
             It.IsAny<int>())).ReturnsAsync(testResult);
 
         // act
-        var result = await _catalogCarService.UpdateCatalogCarAsync(_testCatalogCar.Id, _testCatalogCar.Model, _testCatalogCar.Year, _testCatalogCar.Transmission, _testCatalogCar.Price, _testCatalogCar.Description, _testCatalogCar.PictureFileName, _testCatalogCar.EngineDisplacement, _testCatalogCar.CatalogManufacturerId);
+        var result = await _catalogCarService.UpdateCatalogCarAsync(_testCatalogCar.Id, _testCatalogCar.Model, _testCatalogCar.Year, _testCatalogCar.Transmission, _testCatalogCar.Price, _testCatalogCar.Description, _testCatalogCar.PictureFileName, _testCatalogCar.EngineDisplacement, _testCatalogCar.Quantity, _testCatalogCar.CatalogManufacturerId);
 
         // assert
         result.Should().Be(testResult);

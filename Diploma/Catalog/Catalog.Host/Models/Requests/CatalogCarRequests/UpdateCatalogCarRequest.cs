@@ -26,6 +26,9 @@ namespace Catalog.Host.Models.Requests.CatalogCarRequests
         [Required(ErrorMessage = "EngineDisplacement is required")]
         [Range(0.2, 10.0, ErrorMessage = "The field {0} must be greater than {1}.")]
         public double EngineDisplacement { get; set; }
+        [Required(ErrorMessage = "Quantity is required")]
+        [RegularExpression("([1-9][0-9]*)", ErrorMessage = "Please enter valid Number")]
+        public int Quantity { get; set; }
         [Required(ErrorMessage = "CatalogManufacturerId is required")]
         [RegularExpression("([1-9][0-9]*)", ErrorMessage = "Please enter valid Number")]
         public int CatalogManufacturerId { get; set; }

@@ -1,4 +1,5 @@
 using Basket.Host.Models;
+using Basket.Host.Models.Items;
 using Basket.Host.Models.Requests;
 using Basket.Host.Models.Responses;
 using Basket.Host.Services.Interfaces;
@@ -25,9 +26,11 @@ public class BasketBffController : ControllerBase
     }
     
     [HttpPost]
+    [RateLimit]
     [ProducesResponseType((int)HttpStatusCode.OK)]
     public async Task<IActionResult> AddCarsToBasket(AddToBasketRequest request)
     {
+        _logger.LogInformation($"Basket Request-------------------------------- Count of data: {request.Data.Count()}");
         var basketId = User.Claims.FirstOrDefault(x => x.Type == "sub")?.Value;
         await _basketService.AddItems(basketId!, request.Data);
         return Ok();
@@ -42,4 +45,5 @@ public class BasketBffController : ControllerBase
         var response = await _basketService.GetItems(basketId!);
         return Ok(new GetBasketResponse() { Data = response.Data});
     }
+
 }

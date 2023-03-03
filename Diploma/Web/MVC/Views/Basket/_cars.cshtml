@@ -1,7 +1,7 @@
 ﻿@model CatalogBasketCar
 
 
-<form>
+<form asp-action="RemoveFromBasket" asp-controller="Basket" method="post">
 
     <div class="esh-catalog-name">
         <span>@Model.Model</span>
@@ -9,5 +9,12 @@
     <div class="esh-catalog-price">
         <span>@Model.Price.ToString("N2")</span>
     </div>
-    <input type="hidden" asp-for="@Model.Id" name="id" />
+    <div>
+        <span>Quantity: @Model.Quantity.ToString()</span>
+    </div>
+    <input type="hidden" asp-for="@Model.Id" name="Id" />
+    <input type="hidden" asp-for="@Model.Model" name="Model" />
+    <input type="hidden" asp-for="@Model.Price" name="Price" />
+    <input type="hidden" asp-for="@Model.Quantity" name="Quantity" />
+    <button type="submit">Remove</button>
 </form>

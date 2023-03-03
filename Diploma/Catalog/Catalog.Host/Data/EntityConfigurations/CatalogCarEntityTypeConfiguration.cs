@@ -7,10 +7,10 @@ public class CatalogCarEntityTypeConfiguration
 {
     public void Configure(EntityTypeBuilder<CatalogCar> builder)
     {
-        builder.ToTable("Catalogs");
+        builder.ToTable("CarCatalogs");
 
         builder.Property(cc => cc.Id)
-            .UseHiLo("catalog_cars_hilo")
+            .UseHiLo("catalogs_c_hilo")
             .IsRequired();
 
         builder.Property(cc => cc.Model)
@@ -35,6 +35,9 @@ public class CatalogCarEntityTypeConfiguration
             .IsRequired();
 
         builder.Property(cc => cc.EngineDisplacement)
+            .IsRequired();
+
+        builder.Property(cc => cc.Quantity)
             .IsRequired();
 
         builder.HasOne(cc => cc.CatalogManufacturer)
