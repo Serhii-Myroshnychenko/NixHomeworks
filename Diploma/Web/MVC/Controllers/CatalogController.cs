@@ -19,8 +19,6 @@ public class CatalogController : Controller
     {   
         page ??= 0;
         itemsPage ??= 5;
-
-        _logger.LogInformation($"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA Page = {page}, itemsPage = {itemsPage}, ManufacturerFilterApplied = {manufacturersFilterApplied}");
         
         var catalog = await _catalogService.GetCatalogCars(page.Value, itemsPage.Value, manufacturersFilterApplied);
         if (catalog == null)

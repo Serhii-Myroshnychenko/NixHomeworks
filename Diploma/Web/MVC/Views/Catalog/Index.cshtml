@@ -3,10 +3,10 @@
 @{
     ViewData["Title"] = "Catalog";
 }
-<section class="esh-catalog-hero">
+@*<section class="esh-catalog-hero">
     <div class="container">
     </div>
-</section>
+</section>*@
 
 <section class="esh-catalog-filters">
     <div class="container">
@@ -14,7 +14,8 @@
             <label class="esh-catalog-label" data-title="type" > 
                 <select asp-for="ManufacturersFilterApplied" asp-items="@Model.CatalogManufacturers" class="esh-catalog-filter"></select>
             </label>
-            <input class="esh-catalog-send" type="submit" src="~/images/arrow-right.svg" />
+            <input class="esh-catalog-send" type="image" src="~/images/arrow-right.svg" />
+            <input type="hidden" asp-for="ManufacturersFilterApplied" name="ManufacturersFilterApplied" />
         </form>
     </div>
 </section>
