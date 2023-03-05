@@ -68,4 +68,15 @@ public class CatalogCarController : ControllerBase
     {
         return Ok(await _catalogCarService.GetCatalogCarByManufacturerAsync(manufacturerId));
     }
+
+    [HttpPost]
+    [LogAsyncActionFilter("UpdateAllCars")]
+    [ProducesResponseType((int)HttpStatusCode.OK)]
+    public async Task<IActionResult> UpdateAllCars([FromBody]string id)
+    {
+        // var id = User.Claims.FirstOrDefault(x => x.Type == "sub")?.Value;
+        _logger.LogInformation($"Update-------------------------------------------------------  id : {id}");
+        await _catalogCarService.UpdateCatalogCarQuantity(int.Parse(id!));
+        return Ok();
+    }
 }

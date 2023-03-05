@@ -30,6 +30,7 @@ services:
        - ConnectionString=server=www.alevelwebsite.com;port=5433;database=order;uid=postgres;password=postgres;
        - Authorization__Authority=http://www.alevelwebsite.com:5002
        - PathBase=http://www.alevelwebsite.com:5004
+       - CatalogApi=http://www.alevelwebsite.com:5000/api/v1/catalogcar
     depends_on:
       - postgres
       - redis
@@ -48,6 +49,7 @@ services:
        - ConnectionString=server=www.alevelwebsite.com;port=5433;database=catalog;uid=postgres;password=postgres;
        - Authorization__Authority=http://www.alevelwebsite.com:5002
        - PathBase=http://www.alevelwebsite.com:5000
+       - BasketApi=http://www.alevelwebsite.com:5003/api/v1/basket
     depends_on:
       - postgres
       - redis

@@ -1,5 +1,6 @@
 ﻿using Order.Host.Data;
 using Order.Host.Data.Entities;
+using Order.Host.Models;
 
 namespace Order.Host.Repositories.Interfaces
 {
@@ -9,5 +10,6 @@ namespace Order.Host.Repositories.Interfaces
         Task<Purchase?> AddPurchaseAsync(int productId, int clientId, int quantity);
         Task<Purchase?> DeletePurchaseAsync(int id);
         Task<Purchase?> UpdatePurchaseAsync(int id, int productId, int clientId, int quantity);
+        Task<GroupedEntities<CatalogBasketCar>> GetPurchasesByClientIdAsync(int clientId);
     }
 }

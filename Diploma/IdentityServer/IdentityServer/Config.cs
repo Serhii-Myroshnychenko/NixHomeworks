@@ -66,6 +66,10 @@ namespace IdentityServer
                     // no interactive user, use the clientid/secret for authentication
                     AllowedGrantTypes = GrantTypes.ClientCredentials,
 
+                    AllowedScopes =
+                    {
+                        "basket.products"
+                    },
                     // secret for authentication
                     ClientSecrets =
                     {
@@ -81,7 +85,8 @@ namespace IdentityServer
 
                     AllowedScopes =
                     {
-                        "basket.products"
+                        "basket.products",
+                        "catalog.catalogcar"
                     },
 
                     // secret for authentication

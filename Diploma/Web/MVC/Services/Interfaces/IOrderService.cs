@@ -1,7 +1,10 @@
-﻿namespace MVC.Services.Interfaces
+﻿using MVC.ViewModels;
+
+namespace MVC.Services.Interfaces
 {
     public interface IOrderService
     {
-        Task PlaceOrder(int id, string firstName, string lastName);
+        Task PlaceOrder(string firstName, string lastName);
+        Task<IEnumerable<CatalogBasketCar>> GetOrderById();
     }
 }

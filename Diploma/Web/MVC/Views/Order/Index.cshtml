@@ -1,4 +1,4 @@
-﻿@model MVC.ViewModels.BasketViewModels.BasketIndexViewModel
+﻿@model MVC.ViewModels.OrderViewModels.OrderViewModel
 
 <div class="container">
     <div class="row">
@@ -18,17 +18,12 @@
         @foreach (var catalogCar in Model.CatalogBasketCars)
             {
         <div class="esh-catalog-item col-md-4">
-            <partial name="_cars" model="catalogCar" />
+            <partial name="_items" model="catalogCar" />
         </div>
             }
     </div>
     <div>
         <h2>Total: @Model.Total.ToString("C")</h2>
-    </div>
-    <div>
-        <form asp-action="PlaceOrder" asp-controller="Order" method="post">
-            <button type="submit">Place an order</button>
-        </form>
     </div>
 
     }

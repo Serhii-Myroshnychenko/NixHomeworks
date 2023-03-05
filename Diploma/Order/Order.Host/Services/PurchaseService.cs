@@ -66,6 +66,18 @@ namespace Order.Host.Services
             });
         }
 
+        public async Task<GroupedEntitiesResponse<CatalogBasketCar>> GetPurchasesByClientIdAsync(int clientId)
+        {
+            return await ExecuteSafeAsync(async () =>
+            {
+                var result = await _purchaseRepository.GetPurchasesByClientIdAsync(clientId);
+                return new GroupedEntitiesResponse<CatalogBasketCar>()
+                {
+                    Data = result.Data
+                };
+            });
+        }
+
         public async Task<GroupedEntitiesResponse<PurchaseDto>> GetPurchasesByIdAsync(int clientId)
         {
             return await ExecuteSafeAsync(async () =>
@@ -116,6 +128,11 @@ namespace Order.Host.Services
                         await _purchaseRepository.AddPurchaseAsync(elem.Id, id, elem.Quantity);
                     }
                 }
+
+                await _httpClient.SendAsync<object, object>(
+                                       $"{_settings.Value.CatalogApi}/UpdateAllCars",
+                                       HttpMethod.Post,
+                                       id.ToString()).ConfigureAwait(false);
             });
         }
 

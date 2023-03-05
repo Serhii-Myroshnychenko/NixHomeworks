@@ -65,6 +65,8 @@ builder.Services.AddTransient<ICatalogManufacturerRepository, CatalogManufacture
 
 builder.Services.AddTransient<ICatalogCarService, CatalogCarService>();
 builder.Services.AddTransient<ICatalogManufacturerService, CatalogManufacturerService>();
+builder.Services.AddTransient<IInternalHttpClientService, InternalHttpClientService>();
+builder.Services.AddHttpClient();
 
 builder.Services.AddDbContextFactory<ApplicationDbContext>(opts => opts.UseNpgsql(configuration["ConnectionString"] !));
 builder.Services.AddScoped<IDbContextWrapper<ApplicationDbContext>, DbContextWrapper<ApplicationDbContext>>();

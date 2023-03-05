@@ -12,4 +12,5 @@ public interface ICatalogCarService
     Task<CatalogCarDto> AddCatalogCarAsync(string model, DateTime year, string transmission, decimal price, string description, string pictureFileName, double engineDisplacement, int quantity, int catalogManufacturerId);
     Task<CatalogCarDto> UpdateCatalogCarAsync(int id, string model, DateTime year, string transmission, decimal price, string description, string pictureFileName, double engineDisplacement, int quantity, int catalogManufacturerId);
     Task<CatalogCarDto> DeleteCatalogCarAsync(int id);
+    Task UpdateCatalogCarQuantity(int clientId);
 }

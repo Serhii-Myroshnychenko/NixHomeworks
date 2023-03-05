@@ -114,6 +114,14 @@ public class CatalogCarRepository : ICatalogCarRepository
         return new PaginatedItems<CatalogCar>() { TotalCount = totalItems, Data = itemsOnPage };
     }
 
+    public async Task<GroupedEntities<CatalogCar>> GetCatalogCarsAsync()
+    {
+        return new GroupedEntities<CatalogCar>()
+        {
+            Data = await _dbContext.CatalogCars.ToListAsync()
+        };
+    }
+
     public async Task<CatalogCar?> UpdateCatalogCarAsync(int id, string model, DateTime year, string transmission, decimal price, string description, string pictureFileName, double engineDisplacement, int quantity, int catalogManufacturerId)
     {
         _logger.LogInformation($"UpdateCatalogCarAsync method with the following input parameters: id = {id}, model = {model}, year = {year}, transmission = {transmission}, price = {price}, description = {description}, pictureFileName = {pictureFileName}, engineDisplacement = {engineDisplacement}, quantity = {quantity}, catalogManufacturerId = {catalogManufacturerId}");

@@ -1,5 +1,6 @@
 ﻿using Order.Host.Data;
 using Order.Host.Data.Entities;
+using Order.Host.Models;
 using Order.Host.Repositories.Interfaces;
 
 namespace Order.Host.Repositories
@@ -74,6 +75,25 @@ namespace Order.Host.Repositories
             return new GroupedEntities<Purchase>()
             {
                 Data = await _dbContext.Purchases.ToListAsync()
+            };
+        }
+
+        public async Task<GroupedEntities<CatalogBasketCar>> GetPurchasesByClientIdAsync(int clientId)
+        {
+            var result = from purchases in _dbContext.Purchases
+                         where purchases.ClientId == clientId
+                         join products in _dbContext.Products
+                         on purchases.ProductId equals products.Id
+                         select new CatalogBasketCar()
+                         {
+                             Id = purchases.ProductId,
+                             Model = products.Model,
+                             Price = products.Price,
+                             Quantity = purchases.Quantity
+                         };
+            return new GroupedEntities<CatalogBasketCar>()
+            {
+                Data = await result.ToListAsync()
             };
         }
 

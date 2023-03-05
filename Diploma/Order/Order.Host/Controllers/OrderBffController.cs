@@ -6,8 +6,9 @@ using Infrastructure.Identity;
 using Microsoft.AspNetCore.Authorization;
 using Order.Host.Models.Response;
 using Order.Host.Models.Requests;
+using Order.Host.Models;
 
-namespace Catalog.Host.Controllers;
+namespace Order.Host.Controllers;
 
 [ApiController]
 [Authorize(Policy = AuthPolicy.AllowEndUserPolicy)]
@@ -40,6 +41,8 @@ public class OrderBffController : ControllerBase
     public async Task<IActionResult> Get()
     {
         var id = User.Claims.FirstOrDefault(x => x.Type == "sub")?.Value;
+        _logger.LogInformation($"Iddddddddddddd: {id}");
+
         return Ok(await _purchaseSevice.GetPurchasesAsync());
     }
 
@@ -61,12 +64,24 @@ public class OrderBffController : ControllerBase
     }
 
     [HttpPost]
+    [LogAsyncActionFilter("GetOrderBasketByClientId")]
+    [ProducesResponseType(typeof(GroupedEntitiesResponse<CatalogBasketCar>), (int)HttpStatusCode.OK)]
+    public async Task<IActionResult> GetOrderBasketByClientId()
+    {
+        var id = User.Claims.FirstOrDefault(x => x.Type == "sub")?.Value;
+
+        return Ok(await _purchaseSevice.GetPurchasesByClientIdAsync(int.Parse(id!)));
+    }
+
+    [HttpPost]
     [LogAsyncActionFilter("PlaceOrder")]
     [ProducesResponseType((int)HttpStatusCode.OK)]
     public async Task<IActionResult> PlaceOrder([FromBody] PlaceOrderRequest request)
     {
-        // var id = User.Claims.FirstOrDefault(x => x.Type == "sub")?.Value;
-        await _purchaseSevice.PlaceOrder(request.Id, request.FirstName, request.LastName);
+        var id = User.Claims.FirstOrDefault(x => x.Type == "sub")?.Value;
+        _logger.LogInformation($"Place an Order--------------: id: {id}, firstName: {request.FirstName}, lastName: {request.LastName}");
+
+        await _purchaseSevice.PlaceOrder(int.Parse(id!), request.FirstName, request.LastName);
         return Ok();
     }
 

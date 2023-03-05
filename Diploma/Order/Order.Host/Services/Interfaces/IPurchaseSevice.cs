@@ -1,4 +1,5 @@
-﻿using Order.Host.Models.Dtos;
+﻿using Order.Host.Models;
+using Order.Host.Models.Dtos;
 using Order.Host.Models.Response;
 
 namespace Order.Host.Services.Interfaces
@@ -10,6 +11,7 @@ namespace Order.Host.Services.Interfaces
         Task<PurchaseDto> UpdatePurchaseAsync(int id, int productId, int clientId, int quantity);
         Task<PurchaseDto> DeletePurchaseAsync(int id);
         Task<GroupedEntitiesResponse<PurchaseDto>> GetPurchasesByIdAsync(int clientId);
+        Task<GroupedEntitiesResponse<CatalogBasketCar>> GetPurchasesByClientIdAsync(int clientId);
         Task PlaceOrder(int id, string firtsName, string lastName);
     }
 }

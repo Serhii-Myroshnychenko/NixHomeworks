@@ -1,5 +1,4 @@
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
-using MVC.Services;
 using MVC.Services.Interfaces;
 using MVC.ViewModels;
 
@@ -23,10 +22,7 @@ public class AccountController : Controller
     {
         var user = _identityParser.Parse(User);
         var id = User.Claims.FirstOrDefault(x => x.Type == "sub")?.Value;
-        _logger.LogInformation($"User---------- another {id} authenticated");
-        _logger.LogInformation($"User---------- {user.Id} authenticated");
-        _logger.LogInformation($"User {user.Name} authenticated");
-        
+
         // "Catalog" because UrlHelper doesn't support nameof() for controllers
         // https://github.com/aspnet/Mvc/issues/5853
         return RedirectToAction(nameof(CatalogController.Index), "Catalog");
