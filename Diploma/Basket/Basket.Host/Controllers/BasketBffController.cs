@@ -41,8 +41,10 @@ public class BasketBffController : ControllerBase
     [ProducesResponseType(typeof(GetBasketResponse), (int)HttpStatusCode.OK)]
     public async Task<IActionResult> GetBasket()
     {
+        _logger.LogInformation($"Basket Request--------------------------------");
         var basketId = User.Claims.FirstOrDefault(x => x.Type == "sub")?.Value;
         var response = await _basketService.GetItems(basketId!);
+        _logger.LogInformation($"Everything is ok--------------------------------");
         return Ok(new GetBasketResponse() { Data = response.Data});
     }
 

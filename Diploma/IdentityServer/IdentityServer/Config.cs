@@ -33,6 +33,13 @@ namespace IdentityServer
                         new Scope("catalog.catalogmanufacturer"),
                         new Scope("catalog.catalogcar"),
                     },
+                },
+                new ApiResource("basket")
+                {
+                    Scopes = new List<Scope>
+                    {
+                        new Scope("basket.products"),
+                    },
                 }
             };
         }
@@ -67,6 +74,24 @@ namespace IdentityServer
                 },
                 new Client
                 {
+                    ClientId = "order",
+
+                    // no interactive user, use the clientid/secret for authentication
+                    AllowedGrantTypes = GrantTypes.ClientCredentials,
+
+                    AllowedScopes =
+                    {
+                        "basket.products"
+                    },
+
+                    // secret for authentication
+                    ClientSecrets =
+                    {
+                        new Secret("secret".Sha256())
+                    },
+                },
+                new Client
+                {
                     ClientId = "catalogswaggerui",
                     ClientName = "Catalog Swagger UI",
                     AllowedGrantTypes = GrantTypes.Implicit,
@@ -78,6 +103,21 @@ namespace IdentityServer
                     AllowedScopes =
                     {
                         "mvc", "catalog.catalogmanufacturer", "catalog.catalogcar"
+                    }
+                },
+                new Client
+                {
+                    ClientId = "orderswaggerui",
+                    ClientName = "Order Swagger UI",
+                    AllowedGrantTypes = GrantTypes.Implicit,
+                    AllowAccessTokensViaBrowser = true,
+
+                    RedirectUris = { $"{configuration["OrderApi"]}/swagger/oauth2-redirect.html" },
+                    PostLogoutRedirectUris = { $"{configuration["OrderApi"]}/swagger/" },
+
+                    AllowedScopes =
+                    {
+                        "mvc"
                     }
                 },
                 new Client

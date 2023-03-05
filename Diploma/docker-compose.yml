@@ -17,6 +17,24 @@ services:
       - redis
     ports:
       - 5003:5003
+  order.api:
+    container_name: lde.order.api
+    build:
+      context: .
+      dockerfile: Order/Order.Host/Dockerfile
+    environment:
+       - ASPNETCORE_ENVIRONMENT=Development
+       - ASPNETCORE_URLS=http://+:5004
+       - Redis__Host=www.alevelwebsite.com:6380
+       - Redis__CacheTimeout=00:10:00
+       - ConnectionString=server=www.alevelwebsite.com;port=5433;database=order;uid=postgres;password=postgres;
+       - Authorization__Authority=http://www.alevelwebsite.com:5002
+       - PathBase=http://www.alevelwebsite.com:5004
+    depends_on:
+      - postgres
+      - redis
+    ports:
+      - 5004:5004
   catalog.api:
     container_name: lde.catalog.api
     build:
@@ -45,6 +63,7 @@ services:
       - ASPNETCORE_URLS=http://+:5001
       - CatalogUrl=http://www.alevelwebsite.com:5000/api/v1/catalogbff
       - BasketUrl=http://www.alevelwebsite.com:5003/api/v1/basketbff
+      - OrderUrl=http://www.alevelwebsite.com:5004/api/v1/orderbff
       - Authorization__Authority=http://www.alevelwebsite.com:5002
       - IdentityUrl=http://www.alevelwebsite.com:5002
       - CallBackUrl=http://www.alevelwebsite.com/
@@ -66,6 +85,7 @@ services:
       - MvcUrl=http://www.alevelwebsite.com
       - CatalogApi=http://www.alevelwebsite.com:5000
       - BasketApi=http://www.alevelwebsite.com:5003
+      - OrderUrl=http://www.alevelwebsite.com:5004
     ports:
       - 5002:5002
   nginx:

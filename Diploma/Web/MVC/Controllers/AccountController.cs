@@ -22,7 +22,9 @@ public class AccountController : Controller
     public IActionResult SignIn()
     {
         var user = _identityParser.Parse(User);
-
+        var id = User.Claims.FirstOrDefault(x => x.Type == "sub")?.Value;
+        _logger.LogInformation($"User---------- another {id} authenticated");
+        _logger.LogInformation($"User---------- {user.Id} authenticated");
         _logger.LogInformation($"User {user.Name} authenticated");
         
         // "Catalog" because UrlHelper doesn't support nameof() for controllers

@@ -1,0 +1,130 @@
+﻿using Order.Host.Configurations;
+using Order.Host.Data;
+using Order.Host.Models;
+using Order.Host.Models.Dtos;
+using Order.Host.Models.Response;
+using Order.Host.Repositories.Interfaces;
+using Order.Host.Services.Interfaces;
+
+namespace Order.Host.Services
+{
+    public class PurchaseService : BaseDataService<ApplicationDbContext>, IPurchaseSevice
+    {
+        private readonly IPurchaseRepository _purchaseRepository;
+        private readonly IClientRepository _clientRepository;
+        private readonly IInternalHttpClientService _httpClient;
+        private readonly IProductRepository _productRepository;
+        private readonly IOptions<OrderConfig> _settings;
+        private readonly ILogger _logger;
+        private readonly IMapper _mapper;
+
+        public PurchaseService(
+            IDbContextWrapper<ApplicationDbContext> dbContextWrapper,
+            ILogger<BaseDataService<ApplicationDbContext>> logger,
+            IPurchaseRepository purchaseRepository,
+            IClientRepository clientRepository,
+            IProductRepository productRepository,
+            IInternalHttpClientService httpClient,
+            IOptions<OrderConfig> settings,
+            IMapper mapper)
+            : base(dbContextWrapper, logger)
+        {
+            _purchaseRepository = purchaseRepository;
+            _clientRepository = clientRepository;
+            _productRepository = productRepository;
+            _mapper = mapper;
+            _httpClient = httpClient;
+            _settings = settings;
+            _logger = logger;
+        }
+
+        public async Task<PurchaseDto> CreatePurchaseAsync(int productId, int clientId, int quantity)
+        {
+            return await ExecuteSafeAsync(async () =>
+            {
+                return _mapper.Map<PurchaseDto>(await _purchaseRepository.AddPurchaseAsync(productId, clientId, quantity));
+            });
+        }
+
+        public async Task<PurchaseDto> DeletePurchaseAsync(int id)
+        {
+            return await ExecuteSafeAsync(async () =>
+            {
+                return _mapper.Map<PurchaseDto>(await _purchaseRepository.DeletePurchaseAsync(id));
+            });
+        }
+
+        public async Task<GroupedEntitiesResponse<PurchaseDto>> GetPurchasesAsync()
+        {
+            return await ExecuteSafeAsync(async () =>
+            {
+                var result = await _purchaseRepository.GetPurchasesAsync();
+                return new GroupedEntitiesResponse<PurchaseDto>()
+                {
+                    Data = result.Data.Select(s => _mapper.Map<PurchaseDto>(s)).ToList()
+                };
+            });
+        }
+
+        public async Task<GroupedEntitiesResponse<PurchaseDto>> GetPurchasesByIdAsync(int clientId)
+        {
+            return await ExecuteSafeAsync(async () =>
+            {
+                var result = await _purchaseRepository.GetPurchasesAsync();
+                return new GroupedEntitiesResponse<PurchaseDto>()
+                {
+                    Data = result.Data.Where(c => c.ClientId == clientId).Select(s => _mapper.Map<PurchaseDto>(s)).ToList()
+                };
+            });
+        }
+
+        public async Task PlaceOrder(int id, string firtsName, string lastName)
+        {
+            await ExecuteSafeAsync(async () =>
+            {
+                var basketElementsResponse = await _httpClient.SendAsync<GroupedEntities<CatalogBasketCar>, string>(
+                                                    $"{_settings.Value.BasketUrl}/GetBasketById",
+                                                    HttpMethod.Post,
+                                                    id.ToString()).ConfigureAwait(false);
+
+                var basketElements = basketElementsResponse.Data;
+                var clients = await _clientRepository.GetClientsAsync().ConfigureAwait(false);
+                var products = await _productRepository.GetProductsAsync().ConfigureAwait(false);
+                var orders = await _purchaseRepository.GetPurchasesAsync().ConfigureAwait(false);
+
+                var newProducts = basketElements
+                       .Where(item => !products.Data.Any(p => p.Id == item.Id))
+                       .Select(item => _productRepository.AddProductAsync(item.Id, item.Model, item.Price));
+
+                await Task.WhenAll(newProducts).ConfigureAwait(false);
+
+                if (!clients.Data.Any(c => c.Id == id))
+                {
+                    await _clientRepository.AddClientAsync(id, firtsName, lastName).ConfigureAwait(false);
+                }
+
+                var orderDictionary = orders.Data.ToDictionary(o => o.ProductId);
+
+                foreach (var elem in basketElements)
+                {
+                    if (orderDictionary.TryGetValue(elem.Id, out var orderElem) && id == orderElem.ClientId)
+                    {
+                        await _purchaseRepository.UpdatePurchaseAsync(orderElem.Id, elem.Id, id, orderElem.Quantity + elem.Quantity);
+                    }
+                    else
+                    {
+                        await _purchaseRepository.AddPurchaseAsync(elem.Id, id, elem.Quantity);
+                    }
+                }
+            });
+        }
+
+        public async Task<PurchaseDto> UpdatePurchaseAsync(int id, int productId, int clientId, int quantity)
+        {
+            return await ExecuteSafeAsync(async () =>
+            {
+                return _mapper.Map<PurchaseDto>(await _purchaseRepository.UpdatePurchaseAsync(id, productId, clientId, quantity));
+            });
+        }
+    }
+}
