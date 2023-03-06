@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
-using MVC.Models.Requests;
+using Infrastructure.Models;
+using Infrastructure.Models.Items;
+using Infrastructure.Models.Requests;
 using MVC.Services.Interfaces;
 using MVC.ViewModels;
 
@@ -25,7 +27,6 @@ namespace MVC.Services
 
         public async Task AddToBasket(CatalogCar car)
         {
-            _logger.LogInformation($"BAAAAAAAAAAAAAAAAAAASSSSSSSSSSSSSSSSSSSSSSSS CAR ID: {car.Id}");
             var items = await GetBasketItems();
             var listOfItems = items.ToList();
 

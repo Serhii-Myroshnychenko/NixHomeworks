@@ -1,12 +1,12 @@
 using Order.Host.Configurations;
-using Order.Host.Models.Dtos;
 using Order.Host.Services.Interfaces;
 using Infrastructure.Filters;
 using Infrastructure.Identity;
 using Microsoft.AspNetCore.Authorization;
-using Order.Host.Models.Response;
-using Order.Host.Models.Requests;
-using Order.Host.Models;
+using Infrastructure.Models.Responses;
+using Infrastructure.Models.Dtos;
+using Infrastructure.Models.Requests;
+using Infrastructure.Models.Items;
 
 namespace Order.Host.Controllers;
 
@@ -41,8 +41,6 @@ public class OrderBffController : ControllerBase
     public async Task<IActionResult> Get()
     {
         var id = User.Claims.FirstOrDefault(x => x.Type == "sub")?.Value;
-        _logger.LogInformation($"Iddddddddddddd: {id}");
-
         return Ok(await _purchaseSevice.GetPurchasesAsync());
     }
 
@@ -69,7 +67,6 @@ public class OrderBffController : ControllerBase
     public async Task<IActionResult> GetOrderBasketByClientId()
     {
         var id = User.Claims.FirstOrDefault(x => x.Type == "sub")?.Value;
-
         return Ok(await _purchaseSevice.GetPurchasesByClientIdAsync(int.Parse(id!)));
     }
 
@@ -79,8 +76,6 @@ public class OrderBffController : ControllerBase
     public async Task<IActionResult> PlaceOrder([FromBody] PlaceOrderRequest request)
     {
         var id = User.Claims.FirstOrDefault(x => x.Type == "sub")?.Value;
-        _logger.LogInformation($"Place an Order--------------: id: {id}, firstName: {request.FirstName}, lastName: {request.LastName}");
-
         await _purchaseSevice.PlaceOrder(int.Parse(id!), request.FirstName, request.LastName);
         return Ok();
     }

@@ -1,10 +1,8 @@
-using Basket.Host.Models;
-using Basket.Host.Models.Items;
-using Basket.Host.Models.Requests;
-using Basket.Host.Models.Responses;
 using Basket.Host.Services.Interfaces;
 using Infrastructure.Filters;
 using Infrastructure.Identity;
+using Infrastructure.Models.Requests;
+using Infrastructure.Models.Responses;
 using Microsoft.AspNetCore.Authorization;
 
 namespace Basket.Host.Controllers;
@@ -30,7 +28,6 @@ public class BasketBffController : ControllerBase
     [ProducesResponseType((int)HttpStatusCode.OK)]
     public async Task<IActionResult> AddCarsToBasket(AddToBasketRequest request)
     {
-        _logger.LogInformation($"Basket Request-------------------------------- Count of data: {request.Data.Count()}");
         var basketId = User.Claims.FirstOrDefault(x => x.Type == "sub")?.Value;
         await _basketService.AddItems(basketId!, request.Data);
         return Ok();
@@ -41,10 +38,8 @@ public class BasketBffController : ControllerBase
     [ProducesResponseType(typeof(GetBasketResponse), (int)HttpStatusCode.OK)]
     public async Task<IActionResult> GetBasket()
     {
-        _logger.LogInformation($"Basket Request--------------------------------");
         var basketId = User.Claims.FirstOrDefault(x => x.Type == "sub")?.Value;
         var response = await _basketService.GetItems(basketId!);
-        _logger.LogInformation($"Everything is ok--------------------------------");
         return Ok(new GetBasketResponse() { Data = response.Data});
     }
 

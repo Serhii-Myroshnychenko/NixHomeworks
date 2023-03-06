@@ -1,4 +1,6 @@
-﻿namespace MVC.ViewModels.OrderViewModels
+﻿using Infrastructure.Models.Items;
+
+namespace MVC.ViewModels.OrderViewModels
 {
     public class OrderViewModel
     {

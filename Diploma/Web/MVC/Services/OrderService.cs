@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
-using MVC.Models.Responses;
+using Infrastructure.Models.Items;
+using Infrastructure.Models.Responses;
 using MVC.Services.Interfaces;
 using MVC.ViewModels;
 
@@ -28,6 +29,9 @@ namespace MVC.Services
             var result =  await _httpClient.SendAsync<GroupedEntitiesResponse<CatalogBasketCar>, object>
                 ($"{_settings.Value.OrderUrl}/GetOrderBasketByClientId",
                 HttpMethod.Post, null);
+
+            Console.WriteLine($"GetOrderById-------------------: {result.Data.Count()}");
+
             return result.Data;
         }
 

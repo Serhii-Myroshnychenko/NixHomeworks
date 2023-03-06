@@ -1,6 +1,6 @@
 using Catalog.Host.Configurations;
 using Catalog.Host.Data.Entities;
-using Catalog.Host.Models.Dtos;
+using Infrastructure.Models.Dtos;
 
 namespace Catalog.Host.Mapping;
 

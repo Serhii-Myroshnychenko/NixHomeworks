@@ -1,4 +1,5 @@
-﻿using Order.Host.Data;
+﻿using Infrastructure.Models;
+using Order.Host.Data;
 using Order.Host.Data.Entities;
 using Order.Host.Repositories.Interfaces;
 

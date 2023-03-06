@@ -1,5 +1,5 @@
-﻿using Order.Host.Data.Entities;
-using Order.Host.Models.Dtos;
+﻿using Infrastructure.Models.Dtos;
+using Order.Host.Data.Entities;
 
 namespace Order.Host.Mapping
 {

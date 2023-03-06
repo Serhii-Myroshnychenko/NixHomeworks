@@ -1,6 +1,6 @@
-﻿using Basket.Host.Models.Responses;
-using Basket.Host.Services.Interfaces;
+﻿using Basket.Host.Services.Interfaces;
 using Infrastructure.Identity;
+using Infrastructure.Models.Responses;
 using Microsoft.AspNetCore.Authorization;
 
 namespace Basket.Host.Controllers
@@ -26,10 +26,8 @@ namespace Basket.Host.Controllers
         [ProducesResponseType(typeof(GetBasketResponse), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> GetBasket()
         {
-            _logger.LogInformation($"Basket Request--------------------------------");
             var basketId = User.Claims.FirstOrDefault(x => x.Type == "sub")?.Value;
             var response = await _basketService.GetItems(basketId!);
-            _logger.LogInformation($"Everything is ok--------------------------------");
             return Ok(new GetBasketResponse() { Data = response.Data });
         }
 
@@ -37,11 +35,8 @@ namespace Basket.Host.Controllers
         [ProducesResponseType(typeof(GetBasketResponse), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> GetBasketById([FromBody]string id)
         {
-            _logger.LogInformation($"Basket Request--------------------------------");
             var response = await _basketService.GetItems(id);
-            _logger.LogInformation($"Everything is ok--------------------------------");
             return Ok(new GetBasketResponse() { Data = response.Data });
         }
-
     }
 }

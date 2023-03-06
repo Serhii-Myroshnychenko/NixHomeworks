@@ -1,8 +1,9 @@
-﻿using Order.Host.Configurations;
+﻿using Infrastructure.Models;
+using Infrastructure.Models.Dtos;
+using Infrastructure.Models.Items;
+using Infrastructure.Models.Responses;
+using Order.Host.Configurations;
 using Order.Host.Data;
-using Order.Host.Models;
-using Order.Host.Models.Dtos;
-using Order.Host.Models.Response;
 using Order.Host.Repositories.Interfaces;
 using Order.Host.Services.Interfaces;
 

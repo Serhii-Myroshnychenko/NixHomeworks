@@ -1,8 +1,8 @@
 ﻿using Catalog.Host.Data;
-using Catalog.Host.Models.Dtos;
-using Catalog.Host.Models.Response;
 using Catalog.Host.Repositories.Interfaces;
 using Catalog.Host.Services.Interfaces;
+using Infrastructure.Models.Dtos;
+using Infrastructure.Models.Responses;
 
 namespace Catalog.Host.Services;
 

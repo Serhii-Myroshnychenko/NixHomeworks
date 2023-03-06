@@ -1,5 +1,5 @@
-﻿using Catalog.Host.Models.Dtos;
-using Catalog.Host.Models.Response;
+﻿using Infrastructure.Models.Dtos;
+using Infrastructure.Models.Responses;
 
 namespace Catalog.Host.Services.Interfaces;
 

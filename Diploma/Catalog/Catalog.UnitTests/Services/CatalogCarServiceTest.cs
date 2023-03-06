@@ -1,7 +1,10 @@
 using System.Threading;
+using Catalog.Host.Configurations;
 using Catalog.Host.Data.Entities;
-using Catalog.Host.Models.Dtos;
-using Catalog.Host.Models.Response;
+using Infrastructure.Models;
+using Infrastructure.Models.Dtos;
+using Infrastructure.Models.Responses;
+using Microsoft.Extensions.Options;
 
 namespace Catalog.UnitTests.Services;
 
@@ -9,6 +12,8 @@ public class CatalogCarServiceTest
 {
     private readonly ICatalogCarService _catalogCarService;
     private readonly Mock<ICatalogCarRepository> _catalogCarRepository;
+    private readonly Mock<IInternalHttpClientService> _internalHttpClientService;
+    private readonly Mock<IOptions<CatalogConfig>> _config;
     private readonly Mock<IDbContextWrapper<ApplicationDbContext>> _dbContextWrapper;
     private readonly Mock<ILogger<CatalogCarService>> _logger;
     private readonly Mock<IMapper> _mapper;
@@ -45,13 +50,16 @@ public class CatalogCarServiceTest
     {
         _catalogCarRepository = new Mock<ICatalogCarRepository>();
         _dbContextWrapper = new Mock<IDbContextWrapper<ApplicationDbContext>>();
+        _internalHttpClientService = new Mock<IInternalHttpClientService>();
+        _config = new Mock<IOptions<CatalogConfig>>();
+
         _logger = new Mock<ILogger<CatalogCarService>>();
         _mapper = new Mock<IMapper>();
 
         var dbContextTransaction = new Mock<IDbContextTransaction>();
         _dbContextWrapper.Setup(s => s.BeginTransactionAsync(CancellationToken.None)).ReturnsAsync(dbContextTransaction.Object);
 
-        _catalogCarService = new CatalogCarService(_dbContextWrapper.Object, _logger.Object, _catalogCarRepository.Object, _mapper.Object);
+        _catalogCarService = new CatalogCarService(_dbContextWrapper.Object, _logger.Object, _catalogCarRepository.Object, _internalHttpClientService.Object, _config.Object, _mapper.Object);
     }
 
     [Fact]

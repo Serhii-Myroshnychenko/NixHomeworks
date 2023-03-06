@@ -1,9 +1,8 @@
-using Catalog.Host.Models.Requests;
-using Catalog.Host.Models.Requests.CatalogCarRequests;
-using Catalog.Host.Models.Response;
 using Catalog.Host.Services.Interfaces;
 using Infrastructure.Filters;
 using Infrastructure.Identity;
+using Infrastructure.Models.Requests.CatalogCarRequests;
+using Infrastructure.Models.Responses;
 using Microsoft.AspNetCore.Authorization;
 
 namespace Catalog.Host.Controllers;
@@ -74,8 +73,6 @@ public class CatalogCarController : ControllerBase
     [ProducesResponseType((int)HttpStatusCode.OK)]
     public async Task<IActionResult> UpdateAllCars([FromBody]string id)
     {
-        // var id = User.Claims.FirstOrDefault(x => x.Type == "sub")?.Value;
-        _logger.LogInformation($"Update-------------------------------------------------------  id : {id}");
         await _catalogCarService.UpdateCatalogCarQuantity(int.Parse(id!));
         return Ok();
     }

@@ -1,6 +1,6 @@
-using Basket.Host.Models.Dtos;
-using Basket.Host.Models.Items;
 using Basket.Host.Services.Interfaces;
+using Infrastructure.Models.Dtos;
+using Infrastructure.Models.Items;
 
 namespace Basket.Host.Services;
 

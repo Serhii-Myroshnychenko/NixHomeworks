@@ -1,0 +1,58 @@
+﻿@model CatalogCar
+
+
+<section class="esh-catalog-filters">
+
+</section>
+
+<div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <img class="esh-catalog-thumbnail" src="@Model.PictureUrl" />
+            </div>
+            <div class="col-md-6">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h1 style="position: relative; left: -15px;">@Model.Model</h1>
+                    </div>
+                </div>
+                <div class="row">
+                     <p class="description">
+                          @Model.Description
+                     </p>
+                </div>
+                <div class="row">
+
+                        <form asp-action="AddToBasket" asp-controller="Basket" method="post">
+                            <button type="submit" class="btn btn-outline-success" >Add to Cart</button>
+                                <input type="hidden" asp-for="@Model.Id" name="Id" />
+                                <input type="hidden" asp-for="@Model.Model" name="Model" />
+                                 <input type="hidden" asp-for="@Model.Year" name="Year" />
+                                 <input type="hidden" asp-for="@Model.Transmission" name="Transmission" />
+                                 <input type="hidden" asp-for="@Model.Price" name="Price" />
+                                  <input type="hidden" asp-for="@Model.Description" name="Description" />
+                                   <input type="hidden" asp-for="@Model.PictureUrl" name="PictureUrl" />
+                                     <input type="hidden" asp-for="@Model.EngineDisplacement" name="EngineDisplacement" />
+                                    <input type="hidden" asp-for="@Model.Quantity" name="Quantity" />
+                                    <input type="hidden" asp-for="@Model.CatalogManufacturer" name="CatalogManufacturer" />
+                                
+                        </form>
+                </div>
+                <div class="row" style="padding-top: 20px;">
+                    <ul class="list-group">
+                              <li class="list-group-item"><span class="font-weight-bold">Price - </span> $@Model.Price</li>
+                              <li class="list-group-item"><span class="font-weight-bold">Engine displacement - </span> @Model.EngineDisplacement</li>
+                              <li class="list-group-item"><span class="font-weight-bold">Transmission - </span> @Model.Transmission</li>
+                 </ul>
+                </div>
+                
+            </div>
+                
+        </div>
+
+        <div class="text-center" style="padding-top: 20px;">
+            <form asp-action="Index" asp-controller="Catalog" method="post">
+                 <button type="submit" class="btn btn-success">Back to Cars</button>
+            </form>
+        </div>
+</div>

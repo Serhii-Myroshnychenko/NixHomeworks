@@ -1,11 +1,11 @@
 using Catalog.Host.Configurations;
-using Catalog.Host.Models.Dtos;
-using Catalog.Host.Models.Enums;
-using Catalog.Host.Models.Requests;
-using Catalog.Host.Models.Response;
 using Catalog.Host.Services.Interfaces;
+using Infrastructure.Enums;
 using Infrastructure.Filters;
 using Infrastructure.Identity;
+using Infrastructure.Models.Dtos;
+using Infrastructure.Models.Requests;
+using Infrastructure.Models.Responses;
 using Microsoft.AspNetCore.Authorization;
 
 namespace Catalog.Host.Controllers;
@@ -38,7 +38,6 @@ public class CatalogBffController : ControllerBase
     [ProducesResponseType(typeof(PaginatedItemsResponse<CatalogCarDto>), (int)HttpStatusCode.OK)]
     public async Task<IActionResult> Items(PaginatedItemsRequest<CatalogTypeFilter> request)
     {
-        _logger.LogInformation($"Filteeeeeeeeeeeeeeeeeeeeeeeeeeeeers: {request.Filters}");
         return Ok(await _catalogCarService.GetCatalogCarsAsync(request.PageSize, request.PageIndex, request.Filters));
     }
 

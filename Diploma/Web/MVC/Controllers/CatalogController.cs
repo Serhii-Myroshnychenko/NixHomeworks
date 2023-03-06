@@ -1,4 +1,5 @@
 ﻿using MVC.Services.Interfaces;
+using MVC.ViewModels;
 using MVC.ViewModels.CatalogViewModels;
 using MVC.ViewModels.Pagination;
 
@@ -44,5 +45,10 @@ public class CatalogController : Controller
         vm.PaginationInfo.Previous = (vm.PaginationInfo.ActualPage == 0) ? "is-disabled" : "";
 
         return View(vm);
+    }
+    public IActionResult CatalogCar(CatalogCar car)
+    {
+        Console.WriteLine("Im-hereeeeeeeee");
+        return View(car);
     }
 }

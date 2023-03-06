@@ -1,6 +1,6 @@
-﻿using Order.Host.Data;
-using Order.Host.Models.Dtos;
-using Order.Host.Models.Response;
+﻿using Infrastructure.Models.Dtos;
+using Infrastructure.Models.Responses;
+using Order.Host.Data;
 using Order.Host.Repositories.Interfaces;
 using Order.Host.Services.Interfaces;
 

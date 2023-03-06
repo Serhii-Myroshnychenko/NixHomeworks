@@ -1,4 +1,6 @@
-﻿namespace MVC.ViewModels.BasketViewModels
+﻿using Infrastructure.Models.Items;
+
+namespace MVC.ViewModels.BasketViewModels
 {
     public class BasketIndexViewModel
     {

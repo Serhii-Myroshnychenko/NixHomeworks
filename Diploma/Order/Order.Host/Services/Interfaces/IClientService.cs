@@ -1,5 +1,5 @@
-﻿using Order.Host.Models.Dtos;
-using Order.Host.Models.Response;
+﻿using Infrastructure.Models.Dtos;
+using Infrastructure.Models.Responses;
 
 namespace Order.Host.Services.Interfaces
 {

@@ -24,9 +24,10 @@ namespace MVC.Controllers
         {
             var user = _identityParser.Parse(User);
             var id = User.Claims.FirstOrDefault(x => x.Type == "sub")?.Value;
-            _logger.LogInformation($"Indexxx-------Order: id = {id}, userName = {user.Name}, lastName = {user.LastName}");
-
             var items = await _orderService.GetOrderById();
+
+            Console.WriteLine($"Iteeeemsss ORDEERRRRR: {items.Count()}");
+
             var total = items.Sum(c => c.Price * c.Quantity);
 
             var orderViewModel = new OrderViewModel()
@@ -42,10 +43,8 @@ namespace MVC.Controllers
             var user = _identityParser.Parse(User);
             var id = User.Claims.FirstOrDefault(x => x.Type == "sub")?.Value;
 
-            _logger.LogInformation($"Indexxx-------Order: id = {user.Id}, userName = {user.Name}, lastName = {user.Name}");
-
             await _orderService.PlaceOrder(user.Name, user.Name);
-            return RedirectToAction("Index");
+            return RedirectToAction(nameof(CatalogController.Index), "Catalog");
         }
     }
 }

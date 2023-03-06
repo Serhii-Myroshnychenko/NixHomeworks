@@ -1,11 +1,12 @@
 ﻿using Catalog.Host.Configurations;
 using Catalog.Host.Data;
-using Catalog.Host.Models;
-using Catalog.Host.Models.Dtos;
-using Catalog.Host.Models.Enums;
-using Catalog.Host.Models.Response;
 using Catalog.Host.Repositories.Interfaces;
 using Catalog.Host.Services.Interfaces;
+using Infrastructure.Enums;
+using Infrastructure.Models;
+using Infrastructure.Models.Dtos;
+using Infrastructure.Models.Items;
+using Infrastructure.Models.Responses;
 
 namespace Catalog.Host.Services;
 

@@ -1,6 +1,7 @@
-﻿using Order.Host.Data;
+﻿using Infrastructure.Models;
+using Infrastructure.Models.Items;
+using Order.Host.Data;
 using Order.Host.Data.Entities;
-using Order.Host.Models;
 using Order.Host.Repositories.Interfaces;
 
 namespace Order.Host.Repositories

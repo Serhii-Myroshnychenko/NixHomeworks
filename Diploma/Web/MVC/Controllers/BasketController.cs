@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Infrastructure.Models.Items;
 using MVC.Services.Interfaces;
 using MVC.ViewModels;
 using MVC.ViewModels.BasketViewModels;
@@ -28,7 +28,7 @@ namespace MVC.Controllers
         public async Task<IActionResult> AddToBasket(CatalogCar car)
         {
             await _basketService.AddToBasket(car);
-            return RedirectToAction("Index");
+            return RedirectToAction(nameof(CatalogController.Index), "Catalog");
         }
         public async Task<IActionResult> RemoveFromBasket(CatalogBasketCar car)
         {

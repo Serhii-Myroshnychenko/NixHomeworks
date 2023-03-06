@@ -1,8 +1,8 @@
-﻿using Catalog.Host.Models.Requests.CatalogManufacturerRequests;
-using Catalog.Host.Models.Response;
-using Catalog.Host.Services.Interfaces;
+﻿using Catalog.Host.Services.Interfaces;
 using Infrastructure.Filters;
 using Infrastructure.Identity;
+using Infrastructure.Models.Requests.CatalogManufacturerRequests;
+using Infrastructure.Models.Responses;
 using Microsoft.AspNetCore.Authorization;
 
 namespace Catalog.Host.Controllers

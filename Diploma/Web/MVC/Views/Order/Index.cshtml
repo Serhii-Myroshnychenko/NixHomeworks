@@ -1,6 +1,6 @@
 ﻿@model MVC.ViewModels.OrderViewModels.OrderViewModel
 
-<div class="container">
+@*<div class="container">
     <div class="row">
         <br />
         @if(ViewBag.BasketInoperativeMsg != null)
@@ -34,3 +34,57 @@
     </div>
     }
 </div>
+*@
+
+
+@if (Model.CatalogBasketCars.Count() > 0)
+{
+    <h2 style="text-align: center; padding-left: 15px;">Your orders</h2>
+
+    <table class="table table-bordered">
+    <thead class="thead-light">
+        <tr>
+            <th class="text-center">Quantity</th>
+            <th class="text-center">Model</th>
+            <th class="text-right">Price</th>
+            <th class="text-right">Subtotal</th>
+        </tr>
+    </thead>
+    <tbody>
+         @foreach (var catalogCar in Model.CatalogBasketCars)
+         {
+             <form asp-action="RemoveFromBasket" asp-controller="Basket" method="post">
+                  <input type="hidden" asp-for="@catalogCar.Id" name="Id" />
+                  <input type="hidden" asp-for="@catalogCar.Model" name="Model" />
+                  <input type="hidden" asp-for="@catalogCar.Price" name="Price" />
+                  <input type="hidden" asp-for="@catalogCar.Quantity" name="Quantity" />
+                   <tr>
+                        <td class="text-center">@catalogCar.Quantity</td>
+                        <td class="text-center">@catalogCar.Model</td>
+                        <td class="text-right">$@catalogCar.Price</td>
+                        <td class="text-right">
+                            $@((catalogCar.Quantity * catalogCar.Price))
+                        </td>
+                    </tr>
+             </form>
+         }
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="3" class="text-right">Total:</td>
+            <td class="text-right">
+                $@Model.Total
+            </td>
+        </tr>
+    </tfoot>
+</table>
+<div class="text-center">
+    <form asp-action="Index" asp-controller="Catalog" method="post">
+            <button type="submit" class="btn btn-success">Back to Cars</button>
+    </form>
+    </div>
+}
+else
+{
+    <h2 style="text-align: center;">You haven't had any orders yet</h2>
+}

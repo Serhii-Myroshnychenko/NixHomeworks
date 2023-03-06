@@ -2,8 +2,9 @@
 
 
 <form asp-action="AddToBasket" asp-controller="Basket" method="post">
-
-    <img class="esh-catalog-thumbnail" src="@Model.PictureUrl" />
+    <a href="@Url.Action("CatalogCar", "Catalog", @Model)">
+        <img class="esh-catalog-thumbnail" src="@Model.PictureUrl" />
+    </a>
 
     <div class="esh-catalog-name">
         <span>@Model.Model</span>

@@ -1,5 +1,4 @@
 using IdentityModel.Client;
-using Infrastructure.Configuration;
 using MVC.Services.Interfaces;
 using Newtonsoft.Json;
 

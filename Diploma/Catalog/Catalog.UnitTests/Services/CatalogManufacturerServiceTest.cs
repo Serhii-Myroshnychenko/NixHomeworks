@@ -1,6 +1,7 @@
 ﻿using System.Threading;
 using Catalog.Host.Data.Entities;
-using Catalog.Host.Models.Dtos;
+using Infrastructure.Models;
+using Infrastructure.Models.Dtos;
 
 namespace Catalog.UnitTests.Services;
 

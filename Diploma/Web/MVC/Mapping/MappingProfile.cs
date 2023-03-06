@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Infrastructure.Models.Items;
 using MVC.ViewModels;
 
 namespace MVC.Mapping

@@ -1,4 +1,5 @@
-﻿using MVC.ViewModels;
+﻿using Infrastructure.Models.Items;
+using MVC.ViewModels;
 
 namespace MVC.Services.Interfaces
 {

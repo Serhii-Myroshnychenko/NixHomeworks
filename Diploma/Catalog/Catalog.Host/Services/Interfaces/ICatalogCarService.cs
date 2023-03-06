@@ -1,6 +1,6 @@
-﻿using Catalog.Host.Models.Dtos;
-using Catalog.Host.Models.Enums;
-using Catalog.Host.Models.Response;
+﻿using Infrastructure.Enums;
+using Infrastructure.Models.Dtos;
+using Infrastructure.Models.Responses;
 
 namespace Catalog.Host.Services.Interfaces;
 
