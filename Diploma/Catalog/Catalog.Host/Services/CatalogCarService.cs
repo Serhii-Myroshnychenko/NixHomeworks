@@ -16,6 +16,7 @@ public class CatalogCarService : BaseDataService<ApplicationDbContext>, ICatalog
     private readonly IInternalHttpClientService _internalHttpClientService;
     private readonly IOptions<CatalogConfig> _settings;
     private readonly IMapper _mapper;
+    private readonly ILogger<BaseDataService<ApplicationDbContext>> _logger;
 
     public CatalogCarService(
         IDbContextWrapper<ApplicationDbContext> dbContextWrapper,
@@ -30,10 +31,12 @@ public class CatalogCarService : BaseDataService<ApplicationDbContext>, ICatalog
         _internalHttpClientService = internalHttpClientService;
         _mapper = mapper;
         _settings = settings;
+        _logger = logger;
     }
 
     public async Task<CatalogCarDto> AddCatalogCarAsync(string model, DateTime year, string transmission, decimal price, string description, string pictureFileName, double engineDisplacement, int quantity, int catalogManufacturerId)
     {
+        _logger.LogInformation($"AddCatalogCarAsync method with the following parameters: model = {model}, year = {year}, price = {price}, description = {description}, pictureFileName = {pictureFileName}, engineDisplacement = {engineDisplacement}, quantity = {quantity}, catalogManufacturerId = {catalogManufacturerId}");
         return await ExecuteSafeAsync(async () =>
         {
             return _mapper.Map<CatalogCarDto>(await _catalogCarRepository.AddCatalogCarAsync(model, year, transmission, price, description, pictureFileName, engineDisplacement, quantity, catalogManufacturerId));
@@ -42,6 +45,7 @@ public class CatalogCarService : BaseDataService<ApplicationDbContext>, ICatalog
 
     public async Task<CatalogCarDto> DeleteCatalogCarAsync(int id)
     {
+        _logger.LogInformation($"DeleteCatalogCarAsync method with the following parameters: id = {id}");
         return await ExecuteSafeAsync(async () =>
         {
             return _mapper.Map<CatalogCarDto>(await _catalogCarRepository.DeleteCatalogCarAsync(id));
@@ -50,6 +54,7 @@ public class CatalogCarService : BaseDataService<ApplicationDbContext>, ICatalog
 
     public async Task<CatalogCarDto> GetCatalogCarByIdAsync(int id)
     {
+        _logger.LogInformation($"GetCatalogCarByIdAsync method with the following parameters: id = {id}");
         return await ExecuteSafeAsync(async () =>
         {
             return _mapper.Map<CatalogCarDto>(await _catalogCarRepository.GetByIdAsync(id));
@@ -58,6 +63,7 @@ public class CatalogCarService : BaseDataService<ApplicationDbContext>, ICatalog
 
     public async Task<GroupedEntitiesResponse<CatalogCarDto>> GetCatalogCarByManufacturerAsync(int manufacturerId)
     {
+        _logger.LogInformation($"GetCatalogCarByManufacturerAsync method with the following parameters: manufacturerId = {manufacturerId}");
         return await ExecuteSafeAsync(async () =>
         {
             var result = await _catalogCarRepository.GetByManufacturerAsync(manufacturerId);
@@ -70,6 +76,7 @@ public class CatalogCarService : BaseDataService<ApplicationDbContext>, ICatalog
 
     public async Task<PaginatedItemsResponse<CatalogCarDto>?> GetCatalogCarsAsync(int pageSize, int pageIndex, Dictionary<CatalogTypeFilter, int>? filters)
     {
+        _logger.LogInformation($"GetCatalogCarsAsync method with the following parameters: pageSize = {pageSize}, pageIndex = {pageIndex}");
         return await ExecuteSafeAsync(async () =>
         {
             int? manufacturerFilter = null;
@@ -100,6 +107,7 @@ public class CatalogCarService : BaseDataService<ApplicationDbContext>, ICatalog
 
     public async Task<CatalogCarDto> UpdateCatalogCarAsync(int id, string model, DateTime year, string transmission, decimal price, string description, string pictureFileName, double engineDisplacement, int quantity, int catalogManufacturerId)
     {
+        _logger.LogInformation($"UpdateCatalogCarAsync method with the following parameters: id = {id}, model = {model}, year = {year}, price = {price}, description = {description}, pictureFileName = {pictureFileName}, engineDisplacement = {engineDisplacement}, quantity = {quantity}, catalogManufacturerId = {catalogManufacturerId}");
         return await ExecuteSafeAsync(async () =>
         {
             return _mapper.Map<CatalogCarDto>(await _catalogCarRepository.UpdateCatalogCarAsync(id, model, year, transmission, price, description, pictureFileName, engineDisplacement, quantity, catalogManufacturerId));
@@ -108,10 +116,9 @@ public class CatalogCarService : BaseDataService<ApplicationDbContext>, ICatalog
 
     public async Task UpdateCatalogCarQuantity(int clientId)
     {
+        _logger.LogInformation($"UpdateCatalogCarQuantity method with the following parameters: clientId = {clientId}");
         await ExecuteSafeAsync(async () =>
         {
-            Console.WriteLine($"UpdateCatalogCarQuantity----------------------------------: clientId : {clientId}");
-
             var result = await _internalHttpClientService.SendAsync<GroupedEntities<CatalogBasketCar>, object>(
                 $"{_settings.Value.BasketApi}/GetBasketById",
                 HttpMethod.Post,
@@ -120,8 +127,6 @@ public class CatalogCarService : BaseDataService<ApplicationDbContext>, ICatalog
             var catalogCars = await _catalogCarRepository.GetCatalogCarsAsync();
             var basketItems = result.Data;
             var catalogItems = catalogCars.Data;
-
-            Console.WriteLine($"UpdateCatalogCarQuantity----------------------------------: catalogCarsCount = {catalogItems.Count()}, basketItemsCount: {basketItems.Count()}");
 
             foreach (var basketItem in basketItems)
             {

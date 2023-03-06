@@ -27,6 +27,7 @@ namespace MVC.Services
 
         public async Task AddToBasket(CatalogCar car)
         {
+            _logger.LogInformation($"Added new item to basket with the following parameters: id: {car.Id}");
             var items = await GetBasketItems();
             var listOfItems = items.ToList();
 
@@ -48,10 +49,12 @@ namespace MVC.Services
             }
 
             await UpdateBasket(listOfItems);
+            _logger.LogInformation($"Updated basket.");
         }
 
         public async Task<IEnumerable<CatalogBasketCar>> GetBasketItems()
         {
+            _logger.LogInformation($"GetBasketItems method executed.");
             var result = await _httpClient.SendAsync<GroupedEntities<CatalogBasketCar>,object>
                 ($"{_settings.Value.BasketUrl}/GetBasket",
                 HttpMethod.Post, null);
@@ -60,6 +63,7 @@ namespace MVC.Services
 
         public async Task RemoveFromBasket(CatalogBasketCar car)
         {
+            _logger.LogInformation($"RemoveFromBasket method executed.");
             var currentBasket = await GetBasketItems();
             if (currentBasket.Any(c=> c.Id == car.Id))
             {
@@ -70,6 +74,7 @@ namespace MVC.Services
 
         public async Task UpdateBasket(IEnumerable<CatalogBasketCar> cars)
         {
+            _logger.LogInformation($"UpdateBasket method executed.");
             await _httpClient.SendAsync<GroupedEntities<CatalogBasketCar>, AddToBasketRequest>
                 ($"{_settings.Value.BasketUrl}/AddCarsToBasket",
                 HttpMethod.Post, new AddToBasketRequest() { Data = cars.ToList() });

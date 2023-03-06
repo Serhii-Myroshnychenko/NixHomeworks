@@ -10,6 +10,7 @@ namespace Order.Host.Services
     {
         private readonly IClientRepository _clientRepository;
         private readonly IMapper _mapper;
+        private readonly ILogger<BaseDataService<ApplicationDbContext>> _logger;
 
         public ClientService(
             IDbContextWrapper<ApplicationDbContext> dbContextWrapper,
@@ -20,10 +21,12 @@ namespace Order.Host.Services
         {
             _clientRepository = clientRepository;
             _mapper = mapper;
+            _logger = logger;
         }
 
         public async Task<ClientDto> CreateClientAsync(int id, string firstName, string lastName)
         {
+            _logger.LogInformation($"CreateClientAsync method with the following parameters: id = {id}, firstName = {firstName}, lastName = {lastName}");
             return await ExecuteSafeAsync(async () =>
             {
                 return _mapper.Map<ClientDto>(await _clientRepository.AddClientAsync(id, firstName, lastName));
@@ -32,6 +35,7 @@ namespace Order.Host.Services
 
         public async Task<ClientDto> DeleteClientAsync(int id)
         {
+            _logger.LogInformation($"DeleteClientAsync method with the following parameters: id = {id}");
             return await ExecuteSafeAsync(async () =>
             {
                  return _mapper.Map<ClientDto>(await _clientRepository.DeleteClientAsync(id));
@@ -40,6 +44,7 @@ namespace Order.Host.Services
 
         public async Task<GroupedEntitiesResponse<ClientDto>> GetClientsAsync()
         {
+            _logger.LogInformation($"GetClientsAsync method executed");
             return await ExecuteSafeAsync(async () =>
             {
                 var result = await _clientRepository.GetClientsAsync();
@@ -52,6 +57,7 @@ namespace Order.Host.Services
 
         public async Task<ClientDto> UpdateClientAsync(int id, string firstName, string lastName)
         {
+            _logger.LogInformation($"UpdateClientAsync method with the following parameters: id = {id}, firstName = {firstName}, lastName = {lastName}");
             return await ExecuteSafeAsync(async () =>
             {
                 return _mapper.Map<ClientDto>(await _clientRepository.UpdateClientAsync(id, firstName, lastName));

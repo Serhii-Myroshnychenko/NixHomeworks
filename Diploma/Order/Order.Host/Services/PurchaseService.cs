@@ -16,7 +16,7 @@ namespace Order.Host.Services
         private readonly IInternalHttpClientService _httpClient;
         private readonly IProductRepository _productRepository;
         private readonly IOptions<OrderConfig> _settings;
-        private readonly ILogger _logger;
+        private readonly ILogger<BaseDataService<ApplicationDbContext>> _logger;
         private readonly IMapper _mapper;
 
         public PurchaseService(
@@ -41,6 +41,7 @@ namespace Order.Host.Services
 
         public async Task<PurchaseDto> CreatePurchaseAsync(int productId, int clientId, int quantity)
         {
+            _logger.LogInformation($"CreatePurchaseAsync method with the following parameters: productId = {productId}, clientId = {clientId}, quantity = {quantity}");
             return await ExecuteSafeAsync(async () =>
             {
                 return _mapper.Map<PurchaseDto>(await _purchaseRepository.AddPurchaseAsync(productId, clientId, quantity));
@@ -49,6 +50,7 @@ namespace Order.Host.Services
 
         public async Task<PurchaseDto> DeletePurchaseAsync(int id)
         {
+            _logger.LogInformation($"DeletePurchaseAsync method with the following parameters: id = {id}");
             return await ExecuteSafeAsync(async () =>
             {
                 return _mapper.Map<PurchaseDto>(await _purchaseRepository.DeletePurchaseAsync(id));
@@ -57,6 +59,7 @@ namespace Order.Host.Services
 
         public async Task<GroupedEntitiesResponse<PurchaseDto>> GetPurchasesAsync()
         {
+            _logger.LogInformation($"GetPurchasesAsync executed");
             return await ExecuteSafeAsync(async () =>
             {
                 var result = await _purchaseRepository.GetPurchasesAsync();
@@ -69,6 +72,7 @@ namespace Order.Host.Services
 
         public async Task<GroupedEntitiesResponse<CatalogBasketCar>> GetPurchasesByClientIdAsync(int clientId)
         {
+            _logger.LogInformation($"GetPurchasesByClientIdAsync method with the following parameters: clientId = {clientId}");
             return await ExecuteSafeAsync(async () =>
             {
                 var result = await _purchaseRepository.GetPurchasesByClientIdAsync(clientId);
@@ -81,6 +85,7 @@ namespace Order.Host.Services
 
         public async Task<GroupedEntitiesResponse<PurchaseDto>> GetPurchasesByIdAsync(int clientId)
         {
+            _logger.LogInformation($"GetPurchasesByIdAsync method with the following parameters: clientId = {clientId}");
             return await ExecuteSafeAsync(async () =>
             {
                 var result = await _purchaseRepository.GetPurchasesAsync();
@@ -93,6 +98,7 @@ namespace Order.Host.Services
 
         public async Task PlaceOrder(int id, string firtsName, string lastName)
         {
+            _logger.LogInformation($"PlaceOrder method with the following parameters: id = {id}, firstName = {firtsName}, lastName = {lastName}");
             await ExecuteSafeAsync(async () =>
             {
                 var basketElementsResponse = await _httpClient.SendAsync<GroupedEntities<CatalogBasketCar>, string>(
@@ -114,6 +120,7 @@ namespace Order.Host.Services
                 if (!clients.Data.Any(c => c.Id == id))
                 {
                     await _clientRepository.AddClientAsync(id, firtsName, lastName).ConfigureAwait(false);
+                    _logger.LogInformation($"Added new client.");
                 }
 
                 var orderDictionary = orders.Data.ToDictionary(o => o.ProductId);
@@ -127,6 +134,7 @@ namespace Order.Host.Services
                     else
                     {
                         await _purchaseRepository.AddPurchaseAsync(elem.Id, id, elem.Quantity);
+                        _logger.LogInformation($"Added new purchase");
                     }
                 }
 
@@ -139,6 +147,7 @@ namespace Order.Host.Services
 
         public async Task<PurchaseDto> UpdatePurchaseAsync(int id, int productId, int clientId, int quantity)
         {
+            _logger.LogInformation($"UpdatePurchaseAsync method with the following parameters: id = {id}, productId = {productId}, clientId = {clientId}, quantity = {quantity}");
             return await ExecuteSafeAsync(async () =>
             {
                 return _mapper.Map<PurchaseDto>(await _purchaseRepository.UpdatePurchaseAsync(id, productId, clientId, quantity));

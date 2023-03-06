@@ -26,17 +26,16 @@ namespace MVC.Services
 
         public async Task<IEnumerable<CatalogBasketCar>> GetOrderById()
         {
+            _logger.LogInformation($"GetOrderById method executed.");
             var result =  await _httpClient.SendAsync<GroupedEntitiesResponse<CatalogBasketCar>, object>
                 ($"{_settings.Value.OrderUrl}/GetOrderBasketByClientId",
                 HttpMethod.Post, null);
-
-            Console.WriteLine($"GetOrderById-------------------: {result.Data.Count()}");
-
             return result.Data;
         }
 
         public async Task PlaceOrder(string firstName, string lastName)
         {
+            _logger.LogInformation($"PlaceOrder method with the following parameters: firstName = {firstName}, lastName = {lastName}.");
             await _httpClient.SendAsync<object, PlaceOrderRequest>
                 ($"{_settings.Value.OrderUrl}/PlaceOrder",
                 HttpMethod.Post, new PlaceOrderRequest() { FirstName = firstName, LastName = lastName});

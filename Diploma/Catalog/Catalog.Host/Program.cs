@@ -101,7 +101,8 @@ app.UseCors("CorsPolicy");
 
 app.UseAuthentication();
 app.UseAuthorization();
-app.UseMiddleware<RateLimitMiddleware>();
+
+// app.UseMiddleware<RateLimitMiddleware>();
 app.UseEndpoints(endpoints =>
 {
     endpoints.MapDefaultControllerRoute();

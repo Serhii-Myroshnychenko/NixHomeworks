@@ -12,7 +12,10 @@ public class CatalogService : ICatalogService
     private readonly IHttpClientService _httpClient;
     private readonly ILogger<CatalogService> _logger;
 
-    public CatalogService(IHttpClientService httpClient, ILogger<CatalogService> logger, IOptions<AppSettings> settings)
+    public CatalogService(
+        IHttpClientService httpClient,
+        ILogger<CatalogService> logger,
+        IOptions<AppSettings> settings)
     {
         _httpClient = httpClient;
         _settings = settings;
@@ -21,6 +24,7 @@ public class CatalogService : ICatalogService
 
     public async Task<Catalog> GetCatalogCars(int page, int take, int? manufacturer)
     {
+        _logger.LogInformation($"GetCatalogCars method with the following parameters: page = {page}, take = {take}");
         var filters = new Dictionary<CatalogTypeFilter, int>();
         
         if (manufacturer.HasValue)
@@ -42,7 +46,7 @@ public class CatalogService : ICatalogService
 
     public async Task<IEnumerable<SelectListItem>> GetCatalogManufacturers()
     {
-
+        _logger.LogInformation($"GetCatalogManufacturers method executed");
         var result = await _httpClient.SendAsync<GroupedEntities<CatalogManufacturer>, GroupedEntities<CatalogManufacturer>>($"{_settings.Value.CatalogUrl}/GetManufacturers",
             HttpMethod.Post, null);
 
